@@ -32,7 +32,19 @@
 
         <javaClientGenerator type="XMLMAPPER" targetPackage="cn.wwinter.mapper" targetProject="mall-mbg/src/main/java"/>
 
-        <table tableName="%">
+        <table tableName="cms%">
+            <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+        <table tableName="oms%">
+            <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+        <table tableName="pms%">
+            <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+        <table tableName="sms%">
+            <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+        <table tableName="ums%">
             <generatedKey column="id" sqlStatement="MySql"/>
         </table>
     </context>
