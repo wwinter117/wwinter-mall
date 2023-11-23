@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wwinter.mapper.SchemaTableStatisticsMapper">
+  <resultMap id="BaseResultMap" type="cn.wwinter.model.SchemaTableStatistics">
+    <result column="table_schema" jdbcType="VARCHAR" property="tableSchema" />
+    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
+    <result column="total_latency" jdbcType="VARCHAR" property="totalLatency" />
+    <result column="rows_fetched" jdbcType="BIGINT" property="rowsFetched" />
+    <result column="fetch_latency" jdbcType="VARCHAR" property="fetchLatency" />
+    <result column="rows_inserted" jdbcType="BIGINT" property="rowsInserted" />
+    <result column="insert_latency" jdbcType="VARCHAR" property="insertLatency" />
+    <result column="rows_updated" jdbcType="BIGINT" property="rowsUpdated" />
+    <result column="update_latency" jdbcType="VARCHAR" property="updateLatency" />
+    <result column="rows_deleted" jdbcType="BIGINT" property="rowsDeleted" />
+    <result column="delete_latency" jdbcType="VARCHAR" property="deleteLatency" />
+    <result column="io_read_requests" jdbcType="DECIMAL" property="ioReadRequests" />
+    <result column="io_read" jdbcType="VARCHAR" property="ioRead" />
+    <result column="io_read_latency" jdbcType="VARCHAR" property="ioReadLatency" />
+    <result column="io_write_requests" jdbcType="DECIMAL" property="ioWriteRequests" />
+    <result column="io_write" jdbcType="VARCHAR" property="ioWrite" />
+    <result column="io_write_latency" jdbcType="VARCHAR" property="ioWriteLatency" />
+    <result column="io_misc_requests" jdbcType="DECIMAL" property="ioMiscRequests" />
+    <result column="io_misc_latency" jdbcType="VARCHAR" property="ioMiscLatency" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    table_schema, table_name, total_latency, rows_fetched, fetch_latency, rows_inserted, 
+    insert_latency, rows_updated, update_latency, rows_deleted, delete_latency, io_read_requests, 
+    io_read, io_read_latency, io_write_requests, io_write, io_write_latency, io_misc_requests, 
+    io_misc_latency
+  </sql>
+  <select id="selectByExample" parameterType="cn.wwinter.model.SchemaTableStatisticsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from schema_table_statistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="cn.wwinter.model.SchemaTableStatisticsExample">
+    delete from schema_table_statistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.wwinter.model.SchemaTableStatistics">
+    insert into schema_table_statistics (table_schema, table_name, total_latency, 
+      rows_fetched, fetch_latency, rows_inserted, 
+      insert_latency, rows_updated, update_latency, 
+      rows_deleted, delete_latency, io_read_requests, 
+      io_read, io_read_latency, io_write_requests, 
+      io_write, io_write_latency, io_misc_requests, 
+      io_misc_latency)
+    values (#{tableSchema,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, #{totalLatency,jdbcType=VARCHAR}, 
+      #{rowsFetched,jdbcType=BIGINT}, #{fetchLatency,jdbcType=VARCHAR}, #{rowsInserted,jdbcType=BIGINT}, 
+      #{insertLatency,jdbcType=VARCHAR}, #{rowsUpdated,jdbcType=BIGINT}, #{updateLatency,jdbcType=VARCHAR}, 
+      #{rowsDeleted,jdbcType=BIGINT}, #{deleteLatency,jdbcType=VARCHAR}, #{ioReadRequests,jdbcType=DECIMAL}, 
+      #{ioRead,jdbcType=VARCHAR}, #{ioReadLatency,jdbcType=VARCHAR}, #{ioWriteRequests,jdbcType=DECIMAL}, 
+      #{ioWrite,jdbcType=VARCHAR}, #{ioWriteLatency,jdbcType=VARCHAR}, #{ioMiscRequests,jdbcType=DECIMAL}, 
+      #{ioMiscLatency,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.wwinter.model.SchemaTableStatistics">
+    insert into schema_table_statistics
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tableSchema != null">
+        table_schema,
+      </if>
+      <if test="tableName != null">
+        table_name,
+      </if>
+      <if test="totalLatency != null">
+        total_latency,
+      </if>
+      <if test="rowsFetched != null">
+        rows_fetched,
+      </if>
+      <if test="fetchLatency != null">
+        fetch_latency,
+      </if>
+      <if test="rowsInserted != null">
+        rows_inserted,
+      </if>
+      <if test="insertLatency != null">
+        insert_latency,
+      </if>
+      <if test="rowsUpdated != null">
+        rows_updated,
+      </if>
+      <if test="updateLatency != null">
+        update_latency,
+      </if>
+      <if test="rowsDeleted != null">
+        rows_deleted,
+      </if>
+      <if test="deleteLatency != null">
+        delete_latency,
+      </if>
+      <if test="ioReadRequests != null">
+        io_read_requests,
+      </if>
+      <if test="ioRead != null">
+        io_read,
+      </if>
+      <if test="ioReadLatency != null">
+        io_read_latency,
+      </if>
+      <if test="ioWriteRequests != null">
+        io_write_requests,
+      </if>
+      <if test="ioWrite != null">
+        io_write,
+      </if>
+      <if test="ioWriteLatency != null">
+        io_write_latency,
+      </if>
+      <if test="ioMiscRequests != null">
+        io_misc_requests,
+      </if>
+      <if test="ioMiscLatency != null">
+        io_misc_latency,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tableSchema != null">
+        #{tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalLatency != null">
+        #{totalLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="rowsFetched != null">
+        #{rowsFetched,jdbcType=BIGINT},
+      </if>
+      <if test="fetchLatency != null">
+        #{fetchLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="rowsInserted != null">
+        #{rowsInserted,jdbcType=BIGINT},
+      </if>
+      <if test="insertLatency != null">
+        #{insertLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="rowsUpdated != null">
+        #{rowsUpdated,jdbcType=BIGINT},
+      </if>
+      <if test="updateLatency != null">
+        #{updateLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="rowsDeleted != null">
+        #{rowsDeleted,jdbcType=BIGINT},
+      </if>
+      <if test="deleteLatency != null">
+        #{deleteLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="ioReadRequests != null">
+        #{ioReadRequests,jdbcType=DECIMAL},
+      </if>
+      <if test="ioRead != null">
+        #{ioRead,jdbcType=VARCHAR},
+      </if>
+      <if test="ioReadLatency != null">
+        #{ioReadLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="ioWriteRequests != null">
+        #{ioWriteRequests,jdbcType=DECIMAL},
+      </if>
+      <if test="ioWrite != null">
+        #{ioWrite,jdbcType=VARCHAR},
+      </if>
+      <if test="ioWriteLatency != null">
+        #{ioWriteLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="ioMiscRequests != null">
+        #{ioMiscRequests,jdbcType=DECIMAL},
+      </if>
+      <if test="ioMiscLatency != null">
+        #{ioMiscLatency,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.wwinter.model.SchemaTableStatisticsExample" resultType="java.lang.Integer">
+    select count(*) from schema_table_statistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update schema_table_statistics
+    <set>
+      <if test="record.tableSchema != null">
+        table_schema = #{record.tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableName != null">
+        table_name = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalLatency != null">
+        total_latency = #{record.totalLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rowsFetched != null">
+        rows_fetched = #{record.rowsFetched,jdbcType=BIGINT},
+      </if>
+      <if test="record.fetchLatency != null">
+        fetch_latency = #{record.fetchLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rowsInserted != null">
+        rows_inserted = #{record.rowsInserted,jdbcType=BIGINT},
+      </if>
+      <if test="record.insertLatency != null">
+        insert_latency = #{record.insertLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rowsUpdated != null">
+        rows_updated = #{record.rowsUpdated,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateLatency != null">
+        update_latency = #{record.updateLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rowsDeleted != null">
+        rows_deleted = #{record.rowsDeleted,jdbcType=BIGINT},
+      </if>
+      <if test="record.deleteLatency != null">
+        delete_latency = #{record.deleteLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ioReadRequests != null">
+        io_read_requests = #{record.ioReadRequests,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ioRead != null">
+        io_read = #{record.ioRead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ioReadLatency != null">
+        io_read_latency = #{record.ioReadLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ioWriteRequests != null">
+        io_write_requests = #{record.ioWriteRequests,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ioWrite != null">
+        io_write = #{record.ioWrite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ioWriteLatency != null">
+        io_write_latency = #{record.ioWriteLatency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ioMiscRequests != null">
+        io_misc_requests = #{record.ioMiscRequests,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ioMiscLatency != null">
+        io_misc_latency = #{record.ioMiscLatency,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update schema_table_statistics
+    set table_schema = #{record.tableSchema,jdbcType=VARCHAR},
+      table_name = #{record.tableName,jdbcType=VARCHAR},
+      total_latency = #{record.totalLatency,jdbcType=VARCHAR},
+      rows_fetched = #{record.rowsFetched,jdbcType=BIGINT},
+      fetch_latency = #{record.fetchLatency,jdbcType=VARCHAR},
+      rows_inserted = #{record.rowsInserted,jdbcType=BIGINT},
+      insert_latency = #{record.insertLatency,jdbcType=VARCHAR},
+      rows_updated = #{record.rowsUpdated,jdbcType=BIGINT},
+      update_latency = #{record.updateLatency,jdbcType=VARCHAR},
+      rows_deleted = #{record.rowsDeleted,jdbcType=BIGINT},
+      delete_latency = #{record.deleteLatency,jdbcType=VARCHAR},
+      io_read_requests = #{record.ioReadRequests,jdbcType=DECIMAL},
+      io_read = #{record.ioRead,jdbcType=VARCHAR},
+      io_read_latency = #{record.ioReadLatency,jdbcType=VARCHAR},
+      io_write_requests = #{record.ioWriteRequests,jdbcType=DECIMAL},
+      io_write = #{record.ioWrite,jdbcType=VARCHAR},
+      io_write_latency = #{record.ioWriteLatency,jdbcType=VARCHAR},
+      io_misc_requests = #{record.ioMiscRequests,jdbcType=DECIMAL},
+      io_misc_latency = #{record.ioMiscLatency,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

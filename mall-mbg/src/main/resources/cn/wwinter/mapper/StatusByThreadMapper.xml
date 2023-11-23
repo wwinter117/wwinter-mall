@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wwinter.mapper.StatusByThreadMapper">
+  <resultMap id="BaseResultMap" type="cn.wwinter.model.StatusByThread">
+    <id column="THREAD_ID" jdbcType="BIGINT" property="threadId" />
+    <id column="VARIABLE_NAME" jdbcType="VARCHAR" property="variableName" />
+    <result column="VARIABLE_VALUE" jdbcType="VARCHAR" property="variableValue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    THREAD_ID, VARIABLE_NAME, VARIABLE_VALUE
+  </sql>
+  <select id="selectByExample" parameterType="cn.wwinter.model.StatusByThreadExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from status_by_thread
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from status_by_thread
+    where THREAD_ID = #{threadId,jdbcType=BIGINT}
+      and VARIABLE_NAME = #{variableName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from status_by_thread
+    where THREAD_ID = #{threadId,jdbcType=BIGINT}
+      and VARIABLE_NAME = #{variableName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.wwinter.model.StatusByThreadExample">
+    delete from status_by_thread
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.wwinter.model.StatusByThread">
+    insert into status_by_thread (THREAD_ID, VARIABLE_NAME, VARIABLE_VALUE
+      )
+    values (#{threadId,jdbcType=BIGINT}, #{variableName,jdbcType=VARCHAR}, #{variableValue,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.wwinter.model.StatusByThread">
+    insert into status_by_thread
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="threadId != null">
+        THREAD_ID,
+      </if>
+      <if test="variableName != null">
+        VARIABLE_NAME,
+      </if>
+      <if test="variableValue != null">
+        VARIABLE_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="threadId != null">
+        #{threadId,jdbcType=BIGINT},
+      </if>
+      <if test="variableName != null">
+        #{variableName,jdbcType=VARCHAR},
+      </if>
+      <if test="variableValue != null">
+        #{variableValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.wwinter.model.StatusByThreadExample" resultType="java.lang.Integer">
+    select count(*) from status_by_thread
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update status_by_thread
+    <set>
+      <if test="record.threadId != null">
+        THREAD_ID = #{record.threadId,jdbcType=BIGINT},
+      </if>
+      <if test="record.variableName != null">
+        VARIABLE_NAME = #{record.variableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.variableValue != null">
+        VARIABLE_VALUE = #{record.variableValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update status_by_thread
+    set THREAD_ID = #{record.threadId,jdbcType=BIGINT},
+      VARIABLE_NAME = #{record.variableName,jdbcType=VARCHAR},
+      VARIABLE_VALUE = #{record.variableValue,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.wwinter.model.StatusByThread">
+    update status_by_thread
+    <set>
+      <if test="variableValue != null">
+        VARIABLE_VALUE = #{variableValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where THREAD_ID = #{threadId,jdbcType=BIGINT}
+      and VARIABLE_NAME = #{variableName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.wwinter.model.StatusByThread">
+    update status_by_thread
+    set VARIABLE_VALUE = #{variableValue,jdbcType=VARCHAR}
+    where THREAD_ID = #{threadId,jdbcType=BIGINT}
+      and VARIABLE_NAME = #{variableName,jdbcType=VARCHAR}
+  </update>
+</mapper>
