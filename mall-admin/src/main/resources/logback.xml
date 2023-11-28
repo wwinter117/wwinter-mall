@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%5level [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- value="debug": 只显示执行的sql，不显示执行的结果; 若要显示则改成"trace"-->
+    <logger name="cn.wwinter.mapper">
+        <level value="debug"/>
+    </logger>
+    <root level="error">
+        <appender-ref ref="stdout"/>
+    </root>
+
+</configuration>
