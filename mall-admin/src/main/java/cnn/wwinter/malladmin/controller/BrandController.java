@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/demo/brand")
 @AllArgsConstructor
 @Slf4j
-public class DemoController {
+public class BrandController {
 
     private final BrandService brandService;
 
@@ -85,7 +85,7 @@ public class DemoController {
 
     @ApiOperation("批量更新品牌显示状态")
     @PostMapping("/update/showStatus")
-    public Object updateShowStatusBatch(@PathVariable("ids") List<Long> ids, @RequestParam("showStatus") Integer showStatus) {
+    public Object updateShowStatusBatch(@RequestParam("ids") List<Long> ids, @RequestParam("showStatus") Integer showStatus) {
         int count = brandService.updateShowStatusBatch(ids, showStatus);
         CommonResult commonResult;
         if (count > 0) {
@@ -93,6 +93,21 @@ public class DemoController {
             commonResult = new CommonResult().success(count);
         } else {
             log.error("品牌显示状态更新失败: ids={}", ids);
+            commonResult = new CommonResult().failed();
+        }
+        return commonResult;
+    }
+
+    @ApiOperation("批量更新厂家制造商状态")
+    @PostMapping("/update/factoryStatus")
+    public Object updateFactoryStatusBatch(@RequestParam("ids") List<Long> ids, @RequestParam("factoryStatus") Integer factoryStatus) {
+        int count = brandService.updateFactoryStatusBatch(ids, factoryStatus);
+        CommonResult commonResult;
+        if (count > 0) {
+            log.debug("厂家制造商状态更新成功: ids={}", ids);
+            commonResult = new CommonResult().success(count);
+        } else {
+            log.error("厂家制造商状态更新失败: ids={}", ids);
             commonResult = new CommonResult().failed();
         }
         return commonResult;

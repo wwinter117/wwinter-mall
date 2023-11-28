@@ -70,6 +70,15 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
+    public int updateFactoryStatusBatch(List<Long> ids, Integer factoryStatus) {
+        PmsBrand pmsBrand = new PmsBrand();
+        pmsBrand.setShowStatus(factoryStatus);
+        PmsBrandExample example = new PmsBrandExample();
+        example.createCriteria().andIdIn(ids);
+        return brandMapper.updateByExampleSelective(pmsBrand, example);
+    }
+
+    @Override
     public int deleteBrand(Long id) {
         return brandMapper.deleteByPrimaryKey(id);
     }

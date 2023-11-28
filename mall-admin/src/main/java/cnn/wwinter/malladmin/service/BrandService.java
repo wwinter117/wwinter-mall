@@ -26,6 +26,8 @@ public interface BrandService {
 
     int updateShowStatusBatch(List<Long> ids, Integer showStatus);
 
+    int updateFactoryStatusBatch(List<Long> ids, Integer factoryStatus);
+
     int deleteBrand(Long id);
 
     int deleteBrandBatch(List<Long> ids);
