@@ -5,4 +5,25 @@ spring:
     password: root
 
 mybatis:
-  mapper-locations: classpath:mapper/*.xml,classpath*:com/**/mapper/*.xml
+  mapper-locations: classpath:cn/wwinter/mapper/*.xml,classpath*:cn/wwinter/mapper/*.xml
+#  configuration:
+#      default-scripting-language-type: org.apache.ibatis.scripting.xmltags.XMLLanguageDriver
+
+##pagehelper分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  autoDialect: true
+  page-size-zero: false
+  reasonable: true
+  offset-as-page-num: false
+  row-bounds-with-count: false
+  auto-runtime-dialect: false
+  close-conn: true
+  default-count: true
+
+logging:
+  level:
+    root: warn
+    cn:
+      wwinter:
+        malldemo: debug
