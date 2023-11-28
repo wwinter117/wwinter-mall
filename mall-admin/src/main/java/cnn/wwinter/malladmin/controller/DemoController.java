@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * ClassName: DemoController
  * Package: cn.wwinter.malldemo.controller
@@ -33,9 +35,10 @@ public class DemoController {
 
     @ApiOperation("分页获取品牌信息")
     @GetMapping("/list")
-    public Object listBrands(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+    public Object listBrands(@RequestParam(value = "keyword", required = false) String keyword,
+                             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                              @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
-        return new CommonResult().pageSuccess(brandService.listBrands(pageNum, pageSize));
+        return new CommonResult().pageSuccess(brandService.listBrands(keyword, pageNum, pageSize));
     }
 
     @ApiOperation("获取全部品牌信息")
@@ -80,6 +83,21 @@ public class DemoController {
         return commonResult;
     }
 
+    @ApiOperation("批量更新品牌显示状态")
+    @PostMapping("/update/showStatus")
+    public Object updateShowStatusBatch(@PathVariable("ids") List<Long> ids, @RequestParam("showStatus") Integer showStatus) {
+        int count = brandService.updateShowStatusBatch(ids, showStatus);
+        CommonResult commonResult;
+        if (count > 0) {
+            log.debug("品牌显示状态更新成功: ids={}", ids);
+            commonResult = new CommonResult().success(count);
+        } else {
+            log.error("品牌显示状态更新失败: ids={}", ids);
+            commonResult = new CommonResult().failed();
+        }
+        return commonResult;
+    }
+
     @ApiOperation("删除品牌")
     @PostMapping("/delete/{id}")
     public Object deleteBrand(@PathVariable("id") Long id) {
@@ -91,6 +109,21 @@ public class DemoController {
         } else {
             commonResult = new CommonResult().failed();
             log.debug("删除成功: id={}", id);
+        }
+        return commonResult;
+    }
+
+    @ApiOperation("批量删除品牌")
+    @PostMapping("/delete/batch")
+    public Object deleteBrandBatch(@RequestParam("ids") List<Long> ids) {
+        int count = brandService.deleteBrandBatch(ids);
+        CommonResult commonResult;
+        if (count > 0) {
+            log.debug("删除成功: ids={}", ids);
+            commonResult = new CommonResult().success(count);
+        } else {
+            log.debug("删除成功: ids={}", ids);
+            commonResult = new CommonResult().failed();
         }
         return commonResult;
     }

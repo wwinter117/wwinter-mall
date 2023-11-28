@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -29,15 +30,22 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public List<PmsBrand> listBrands(Integer pageNum, Integer pageSize) {
+    public List<PmsBrand> listBrands(String keyword, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return brandMapper.selectByExample(new PmsBrandExample());
+        PmsBrandExample example = new PmsBrandExample();
+        if (StringUtils.hasLength(keyword)) {
+            example.createCriteria().andNameLike("%" + keyword + "%");
+        }
+        return brandMapper.selectByExample(example);
     }
 
     @Override
     public int createBrand(PmsBrandDto pmsBrandDto) {
         PmsBrand pmsBrand = new PmsBrand();
         BeanUtils.copyProperties(pmsBrandDto, pmsBrand);
+        if (StringUtils.hasLength(pmsBrand.getFirstLetter())) {
+            pmsBrand.setFirstLetter(pmsBrandDto.getName().substring(0, 1));
+        }
         return brandMapper.insert(pmsBrand);
     }
 
@@ -46,12 +54,31 @@ public class BrandServiceImpl implements BrandService {
         PmsBrand pmsBrand = new PmsBrand();
         BeanUtils.copyProperties(pmsBrandDto, pmsBrand);
         pmsBrand.setId(id);
+        if (StringUtils.hasLength(pmsBrand.getFirstLetter())) {
+            pmsBrand.setFirstLetter(pmsBrandDto.getName().substring(0, 1));
+        }
         return brandMapper.updateByPrimaryKeySelective(pmsBrand);
+    }
+
+    @Override
+    public int updateShowStatusBatch(List<Long> ids, Integer showStatus) {
+        PmsBrand pmsBrand = new PmsBrand();
+        pmsBrand.setShowStatus(showStatus);
+        PmsBrandExample example = new PmsBrandExample();
+        example.createCriteria().andIdIn(ids);
+        return brandMapper.updateByExampleSelective(pmsBrand, example);
     }
 
     @Override
     public int deleteBrand(Long id) {
         return brandMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int deleteBrandBatch(List<Long> ids) {
+        PmsBrandExample example = new PmsBrandExample();
+        example.createCriteria().andIdIn(ids);
+        return brandMapper.deleteByExample(example);
     }
 
     @Override
