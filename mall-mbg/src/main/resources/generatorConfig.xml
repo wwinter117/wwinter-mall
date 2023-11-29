@@ -33,19 +33,19 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="cn.wwinter.mapper" targetProject="mall-mbg/src/main/java"/>
 
         <table tableName="cms%">
-            <generatedKey column="id" sqlStatement="MySql"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="oms%">
-            <generatedKey column="id" sqlStatement="MySql"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="pms%">
-            <generatedKey column="id" sqlStatement="MySql"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="sms%">
-            <generatedKey column="id" sqlStatement="MySql"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="ums%">
-            <generatedKey column="id" sqlStatement="MySql"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>

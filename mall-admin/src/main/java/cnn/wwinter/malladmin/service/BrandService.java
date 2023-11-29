@@ -18,11 +18,17 @@ public interface BrandService {
 
     List<PmsBrand> listBrands();
 
-    List<PmsBrand> listBrands(Integer pageNum, Integer pageSize);
+    List<PmsBrand> listBrands(String keyword, Integer pageNum, Integer pageSize);
 
     int createBrand(PmsBrandDto pmsBrandDto);
 
     int updateBrand(Long id, PmsBrandDto pmsBrandDto);
 
+    int updateShowStatusBatch(List<Long> ids, Integer showStatus);
+
+    int updateFactoryStatusBatch(List<Long> ids, Integer factoryStatus);
+
     int deleteBrand(Long id);
+
+    int deleteBrandBatch(List<Long> ids);
 }

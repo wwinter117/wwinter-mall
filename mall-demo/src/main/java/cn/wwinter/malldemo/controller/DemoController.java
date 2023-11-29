@@ -25,12 +25,6 @@ public class DemoController {
 
     private final BrandService brandService;
 
-    @ApiOperation("for test")
-    @GetMapping("/")
-    public String index() {
-        return "Index";
-    }
-
     @ApiOperation("根据编号查询品牌信息")
     @GetMapping("/{id}")
     public Object getBrand(@PathVariable(value = "id") Long id) {
