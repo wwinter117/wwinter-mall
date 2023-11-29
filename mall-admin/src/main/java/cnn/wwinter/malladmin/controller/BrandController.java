@@ -20,7 +20,7 @@ import java.util.List;
  * Author: zhangdd
  */
 @RestController
-@RequestMapping("/demo/brand")
+@RequestMapping("/brand")
 @AllArgsConstructor
 @Slf4j
 public class BrandController {
