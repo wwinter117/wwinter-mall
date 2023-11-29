@@ -31,6 +31,7 @@ public class SecurityConfig {
     private final static String[] WHITELIST = {
             "/brand/**",
             "/productCategory/**",
+            "/ProductAttributeCategory/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "*"
