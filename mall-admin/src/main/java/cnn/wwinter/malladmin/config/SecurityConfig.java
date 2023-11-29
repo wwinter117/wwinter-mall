@@ -29,7 +29,8 @@ public class SecurityConfig {
      * 白名单
      */
     private final static String[] WHITELIST = {
-            "/demo/brand/**",
+            "/brand/**",
+            "/productCategory/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "*"
