@@ -50,9 +50,6 @@ public class BrandController {
     @ApiOperation("添加品牌")
     @PostMapping("/create")
     public Object create(@Validated @RequestBody PmsBrandDto pmsBrandDto, BindingResult result) {
-        if (result.hasErrors()) {
-            return new CommonResult().validateFailed(result.getFieldError().getDefaultMessage());
-        }
         CommonResult commonResult;
         int count = brandService.create(pmsBrandDto);
         if (count == 1) {
@@ -68,9 +65,6 @@ public class BrandController {
     @ApiOperation("更新品牌")
     @PostMapping("/update/{id}")
     public Object update(@PathVariable("id") Long id, @Validated @RequestBody PmsBrandDto pmsBrandDto, BindingResult result) {
-        if (result.hasErrors()) {
-            return new CommonResult().validateFailed(result.getFieldError().getDefaultMessage());
-        }
         CommonResult commonResult;
         int count = brandService.update(id, pmsBrandDto);
         if (count == 1) {

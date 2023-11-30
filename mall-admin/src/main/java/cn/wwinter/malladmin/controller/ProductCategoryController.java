@@ -48,9 +48,6 @@ public class ProductCategoryController {
     @ApiOperation("添加产品分类")
     @PostMapping("/create")
     public Object create(@Validated @RequestBody PmsProductCategoryDto pmsProductCategoryDto, BindingResult result) {
-        if (result.hasErrors()) {
-            return new CommonResult().validateFailed(result.getFieldError().getDefaultMessage());
-        }
         CommonResult commonResult;
         int count = productCategoryService.create(pmsProductCategoryDto);
         if (count == 1) {
@@ -66,9 +63,6 @@ public class ProductCategoryController {
     @ApiOperation("更新产品分类")
     @PostMapping("/update/{id}")
     public Object update(@PathVariable("id") Long id, @Validated @RequestBody PmsProductCategoryDto pmsProductCategoryDto, BindingResult result) {
-        if (result.hasErrors()) {
-            return new CommonResult().validateFailed(result.getFieldError().getDefaultMessage());
-        }
         CommonResult commonResult;
         int count = productCategoryService.update(id, pmsProductCategoryDto);
         if (count == 1) {
