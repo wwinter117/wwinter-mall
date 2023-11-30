@@ -14,5 +14,5 @@ import java.util.List;
 public interface ProductAttributeCategoryService {
     int create(String name);
 
-    List<PmsProductAttributeCategory> listProductAttributeCategory(Integer pageNum, Integer pageSize);
+    List<PmsProductAttributeCategory> getList(Integer pageNum, Integer pageSize);
 }

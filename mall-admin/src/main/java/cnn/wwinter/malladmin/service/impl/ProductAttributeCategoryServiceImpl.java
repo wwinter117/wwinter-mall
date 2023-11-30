@@ -30,7 +30,7 @@ public class ProductAttributeCategoryServiceImpl implements ProductAttributeCate
     }
 
     @Override
-    public List<PmsProductAttributeCategory> listProductAttributeCategory(Integer pageNum, Integer pageSize) {
+    public List<PmsProductAttributeCategory> getList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return productAttributeCategoryMapper.selectByExample(new PmsProductAttributeCategoryExample());
     }

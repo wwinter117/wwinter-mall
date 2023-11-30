@@ -27,32 +27,32 @@ public class ProductCategoryController {
 
     @ApiOperation("根据编号查询产品分类信息")
     @GetMapping("/{id}")
-    public Object getProductCategory(@PathVariable(value = "id") Long id) {
-        return new CommonResult().success(productCategoryService.getProductCategory(id));
+    public Object getItem(@PathVariable(value = "id") Long id) {
+        return new CommonResult().success(productCategoryService.getItem(id));
     }
 
     @ApiOperation("分页获取产品分类")
     @GetMapping("/list/{parentId}")
-    public Object listProductCategory(@PathVariable Long parentId,
-                             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                             @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
-        return new CommonResult().pageSuccess(productCategoryService.listProductCategory(parentId, pageNum, pageSize));
+    public Object getList(@PathVariable Long parentId,
+                          @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                          @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+        return new CommonResult().pageSuccess(productCategoryService.getList(parentId, pageNum, pageSize));
     }
 
     @ApiOperation("获取全部产品分类信息")
     @GetMapping("/listAll")
-    public Object getProductCategoryList() {
-        return new CommonResult().success(productCategoryService.listProductCategory());
+    public Object getList() {
+        return new CommonResult().success(productCategoryService.getList());
     }
 
     @ApiOperation("添加产品分类")
     @PostMapping("/create")
-    public Object createProductCategory(@Validated @RequestBody PmsProductCategoryDto pmsProductCategoryDto, BindingResult result) {
+    public Object create(@Validated @RequestBody PmsProductCategoryDto pmsProductCategoryDto, BindingResult result) {
         if (result.hasErrors()) {
             return new CommonResult().validateFailed(result.getFieldError().getDefaultMessage());
         }
         CommonResult commonResult;
-        int count = productCategoryService.createProductCategory(pmsProductCategoryDto);
+        int count = productCategoryService.create(pmsProductCategoryDto);
         if (count == 1) {
             commonResult = new CommonResult().success(pmsProductCategoryDto);
             LOGGER.debug("添加成功: {}", pmsProductCategoryDto);
@@ -65,12 +65,12 @@ public class ProductCategoryController {
 
     @ApiOperation("更新产品分类")
     @PostMapping("/update/{id}")
-    public Object updateProductCategory(@PathVariable("id") Long id, @Validated @RequestBody PmsProductCategoryDto pmsProductCategoryDto, BindingResult result) {
+    public Object update(@PathVariable("id") Long id, @Validated @RequestBody PmsProductCategoryDto pmsProductCategoryDto, BindingResult result) {
         if (result.hasErrors()) {
             return new CommonResult().validateFailed(result.getFieldError().getDefaultMessage());
         }
         CommonResult commonResult;
-        int count = productCategoryService.updateProductCategory(id, pmsProductCategoryDto);
+        int count = productCategoryService.update(id, pmsProductCategoryDto);
         if (count == 1) {
             commonResult = new CommonResult().success(pmsProductCategoryDto);
             LOGGER.debug("更新成功: {}", pmsProductCategoryDto);
@@ -83,8 +83,8 @@ public class ProductCategoryController {
 
     @ApiOperation("删除产品分类")
     @PostMapping("/delete/{id}")
-    public Object deleteProductCategory(@PathVariable("id") Long id) {
-        int count = productCategoryService.deleteProductCategory(id);
+    public Object delete(@PathVariable("id") Long id) {
+        int count = productCategoryService.delete(id);
         CommonResult commonResult;
         if (count == 1) {
             commonResult = new CommonResult().success(null);

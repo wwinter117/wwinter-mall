@@ -29,32 +29,32 @@ public class BrandController {
 
     @ApiOperation("根据编号查询品牌信息")
     @GetMapping("/{id}")
-    public Object getBrand(@PathVariable(value = "id") Long id) {
-        return new CommonResult().success(brandService.getBrand(id));
+    public Object getItem(@PathVariable(value = "id") Long id) {
+        return new CommonResult().success(brandService.getItem(id));
     }
 
     @ApiOperation("分页获取品牌信息")
     @GetMapping("/list")
-    public Object listBrands(@RequestParam(value = "keyword", required = false) String keyword,
-                             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                             @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
-        return new CommonResult().pageSuccess(brandService.listBrands(keyword, pageNum, pageSize));
+    public Object getList(@RequestParam(value = "keyword", required = false) String keyword,
+                          @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                          @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+        return new CommonResult().pageSuccess(brandService.getList(keyword, pageNum, pageSize));
     }
 
     @ApiOperation("获取全部品牌信息")
     @GetMapping("/listAll")
-    public Object getBrandList() {
-        return new CommonResult().success(brandService.listBrands());
+    public Object getList() {
+        return new CommonResult().success(brandService.getList());
     }
 
     @ApiOperation("添加品牌")
     @PostMapping("/create")
-    public Object createBrand(@Validated @RequestBody PmsBrandDto pmsBrandDto, BindingResult result) {
+    public Object create(@Validated @RequestBody PmsBrandDto pmsBrandDto, BindingResult result) {
         if (result.hasErrors()) {
             return new CommonResult().validateFailed(result.getFieldError().getDefaultMessage());
         }
         CommonResult commonResult;
-        int count = brandService.createBrand(pmsBrandDto);
+        int count = brandService.create(pmsBrandDto);
         if (count == 1) {
             commonResult = new CommonResult().success(pmsBrandDto);
             log.debug("添加成功: {}", pmsBrandDto);
@@ -67,12 +67,12 @@ public class BrandController {
 
     @ApiOperation("更新品牌")
     @PostMapping("/update/{id}")
-    public Object updateBrand(@PathVariable("id") Long id, @Validated @RequestBody PmsBrandDto pmsBrandDto, BindingResult result) {
+    public Object update(@PathVariable("id") Long id, @Validated @RequestBody PmsBrandDto pmsBrandDto, BindingResult result) {
         if (result.hasErrors()) {
             return new CommonResult().validateFailed(result.getFieldError().getDefaultMessage());
         }
         CommonResult commonResult;
-        int count = brandService.updateBrand(id, pmsBrandDto);
+        int count = brandService.update(id, pmsBrandDto);
         if (count == 1) {
             commonResult = new CommonResult().success(pmsBrandDto);
             log.debug("更新成功: {}", pmsBrandDto);
@@ -115,8 +115,8 @@ public class BrandController {
 
     @ApiOperation("删除品牌")
     @PostMapping("/delete/{id}")
-    public Object deleteBrand(@PathVariable("id") Long id) {
-        int count = brandService.deleteBrand(id);
+    public Object delete(@PathVariable("id") Long id) {
+        int count = brandService.delete(id);
         CommonResult commonResult;
         if (count == 1) {
             commonResult = new CommonResult().success(null);
@@ -130,8 +130,8 @@ public class BrandController {
 
     @ApiOperation("批量删除品牌")
     @PostMapping("/delete/batch")
-    public Object deleteBrandBatch(@RequestParam("ids") List<Long> ids) {
-        int count = brandService.deleteBrandBatch(ids);
+    public Object deleteBatch(@RequestParam("ids") List<Long> ids) {
+        int count = brandService.deleteBatch(ids);
         CommonResult commonResult;
         if (count > 0) {
             log.debug("删除成功: ids={}", ids);

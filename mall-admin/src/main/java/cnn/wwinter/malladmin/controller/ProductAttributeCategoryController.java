@@ -41,7 +41,7 @@ public class ProductAttributeCategoryController {
 
     @ApiOperation("分页获取所有商品属性分类")
     @GetMapping("/list")
-    public Object listProductAttributeCategory(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
-        return new CommonResult().success(productAttributeCategoryService.listProductAttributeCategory(pageNum, pageSize));
+    public Object getList(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
+        return new CommonResult().success(productAttributeCategoryService.getList(pageNum, pageSize));
     }
 }

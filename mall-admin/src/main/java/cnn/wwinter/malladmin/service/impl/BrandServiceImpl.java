@@ -25,12 +25,12 @@ import java.util.List;
 public class BrandServiceImpl implements BrandService {
     private final PmsBrandMapper brandMapper;
     @Override
-    public List<PmsBrand> listBrands() {
+    public List<PmsBrand> getList() {
         return brandMapper.selectByExample(new PmsBrandExample());
     }
 
     @Override
-    public List<PmsBrand> listBrands(String keyword, Integer pageNum, Integer pageSize) {
+    public List<PmsBrand> getList(String keyword, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         PmsBrandExample example = new PmsBrandExample();
         if (StringUtils.hasLength(keyword)) {
@@ -40,7 +40,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public int createBrand(PmsBrandDto pmsBrandDto) {
+    public int create(PmsBrandDto pmsBrandDto) {
         PmsBrand pmsBrand = new PmsBrand();
         BeanUtils.copyProperties(pmsBrandDto, pmsBrand);
         if (StringUtils.hasLength(pmsBrand.getFirstLetter())) {
@@ -50,7 +50,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public int updateBrand(Long id, PmsBrandDto pmsBrandDto) {
+    public int update(Long id, PmsBrandDto pmsBrandDto) {
         PmsBrand pmsBrand = new PmsBrand();
         BeanUtils.copyProperties(pmsBrandDto, pmsBrand);
         pmsBrand.setId(id);
@@ -79,19 +79,19 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public int deleteBrand(Long id) {
+    public int delete(Long id) {
         return brandMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public int deleteBrandBatch(List<Long> ids) {
+    public int deleteBatch(List<Long> ids) {
         PmsBrandExample example = new PmsBrandExample();
         example.createCriteria().andIdIn(ids);
         return brandMapper.deleteByExample(example);
     }
 
     @Override
-    public PmsBrand getBrand(Long id) {
+    public PmsBrand getItem(Long id) {
         return brandMapper.selectByPrimaryKey(id);
     }
 

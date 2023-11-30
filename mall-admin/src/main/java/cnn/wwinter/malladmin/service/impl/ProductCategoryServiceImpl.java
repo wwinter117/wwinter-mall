@@ -28,14 +28,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     private final PmsProductCategoryMapper productCategoryMapper;
 
     @Override
-    public int createProductCategory(PmsProductCategoryDto pmsProductCategoryDto) {
+    public int create(PmsProductCategoryDto pmsProductCategoryDto) {
         PmsProductCategory productCategory = new PmsProductCategory();
         BeanUtils.copyProperties(pmsProductCategoryDto, productCategory);
         return productCategoryMapper.insert(productCategory);
     }
 
     @Override
-    public int updateProductCategory(Long id, PmsProductCategoryDto pmsProductCategoryDto) {
+    public int update(Long id, PmsProductCategoryDto pmsProductCategoryDto) {
         PmsProductCategory productCategory = new PmsProductCategory();
         BeanUtils.copyProperties(pmsProductCategoryDto, productCategory);
         productCategory.setId(id);
@@ -43,7 +43,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public List<PmsProductCategory> listProductCategory(Long parentId, Integer pageNum, Integer pageSize) {
+    public List<PmsProductCategory> getList(Long parentId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         PmsProductCategoryExample example = new PmsProductCategoryExample();
         example.setOrderByClause("sort desc");
@@ -52,17 +52,17 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public List<PmsProductCategory> listProductCategory() {
+    public List<PmsProductCategory> getList() {
         return productCategoryMapper.selectByExample(new PmsProductCategoryExample());
     }
 
     @Override
-    public int deleteProductCategory(Long id) {
+    public int delete(Long id) {
         return productCategoryMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public Object getProductCategory(Long id) {
+    public Object getItem(Long id) {
         return productCategoryMapper.selectByPrimaryKey(id);
     }
 

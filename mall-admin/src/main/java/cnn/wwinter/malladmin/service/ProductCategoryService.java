@@ -13,15 +13,15 @@ import java.util.List;
  * Author: zhangdd
  */
 public interface ProductCategoryService {
-    int createProductCategory(PmsProductCategoryDto pmsProductCategoryDto);
+    int create(PmsProductCategoryDto pmsProductCategoryDto);
 
-    int updateProductCategory(Long id, PmsProductCategoryDto pmsProductCategoryDto);
+    int update(Long id, PmsProductCategoryDto pmsProductCategoryDto);
 
-    List<PmsProductCategory> listProductCategory(Long parentId, Integer pageNum, Integer pageSize);
+    List<PmsProductCategory> getList(Long parentId, Integer pageNum, Integer pageSize);
 
-    List<PmsProductCategory> listProductCategory();
+    List<PmsProductCategory> getList();
 
-    int deleteProductCategory(Long id);
+    int delete(Long id);
 
-    Object getProductCategory(Long id);
+    Object getItem(Long id);
 }

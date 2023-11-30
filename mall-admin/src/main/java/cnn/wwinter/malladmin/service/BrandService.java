@@ -14,21 +14,21 @@ import java.util.List;
  */
 public interface BrandService {
 
-    PmsBrand getBrand(Long id);
+    PmsBrand getItem(Long id);
 
-    List<PmsBrand> listBrands();
+    List<PmsBrand> getList();
 
-    List<PmsBrand> listBrands(String keyword, Integer pageNum, Integer pageSize);
+    List<PmsBrand> getList(String keyword, Integer pageNum, Integer pageSize);
 
-    int createBrand(PmsBrandDto pmsBrandDto);
+    int create(PmsBrandDto pmsBrandDto);
 
-    int updateBrand(Long id, PmsBrandDto pmsBrandDto);
+    int update(Long id, PmsBrandDto pmsBrandDto);
 
     int updateShowStatusBatch(List<Long> ids, Integer showStatus);
 
     int updateFactoryStatusBatch(List<Long> ids, Integer factoryStatus);
 
-    int deleteBrand(Long id);
+    int delete(Long id);
 
-    int deleteBrandBatch(List<Long> ids);
+    int deleteBatch(List<Long> ids);
 }
