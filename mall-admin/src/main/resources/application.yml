@@ -20,7 +20,7 @@ pagehelper:
 
 logging:
   level:
-    root: warn
+    root: info
     cn:
       wwinter:
         malldemo: debug
