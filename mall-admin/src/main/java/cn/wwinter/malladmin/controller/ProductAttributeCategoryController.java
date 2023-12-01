@@ -2,6 +2,7 @@ package cn.wwinter.malladmin.controller;
 
 import cn.wwinter.malladmin.model.dto.CommonResult;
 import cn.wwinter.malladmin.service.ProductAttributeCategoryService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/ProductAttributeCategory")
 @AllArgsConstructor
+@Api(tags = "ProductAttributeCategoryController", description = "商品属性分类管理")
 public class ProductAttributeCategoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductAttributeCategoryController.class);

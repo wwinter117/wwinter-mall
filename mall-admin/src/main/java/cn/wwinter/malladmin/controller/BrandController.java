@@ -3,6 +3,7 @@ package cn.wwinter.malladmin.controller;
 import cn.wwinter.malladmin.model.dto.CommonResult;
 import cn.wwinter.malladmin.model.dto.PmsBrandDto;
 import cn.wwinter.malladmin.service.BrandService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import java.util.List;
 @RequestMapping("/brand")
 @AllArgsConstructor
 @Slf4j
+@Api(tags = "BrandController", description = "商品品牌管理")
 public class BrandController {
 
     private final BrandService brandService;

@@ -33,7 +33,7 @@ public class WebExceptionAspect {
         for (Object arg : args) {
             if (arg instanceof BindingResult bindingResult) {
                 if (bindingResult.hasErrors()) {
-                    return new CommonResult().validateFailed(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+                    return new CommonResult().validateFailed(bindingResult);
                 }
             }
         }
