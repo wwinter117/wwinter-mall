@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "logging.jwt.tokenHeader",
+      "type": "java.lang.String",
+      "description": "Description for logging.jwt.tokenHeader."
+    },
+    {
+      "name": "logging.jwt.secret",
+      "type": "java.lang.String",
+      "description": "Description for logging.jwt.jwt.secret."
+    },
+    {
+      "name": "logging.jwt.expiration",
+      "type": "java.lang.String",
+      "description": "Description for logging.jwt.jwt.expiration."
+    },
+    {
+      "name": "logging.jwt.tokenHead",
+      "type": "java.lang.String",
+      "description": "Description for logging.jwt.jwt.tokenHead."
+    }
+  ] }

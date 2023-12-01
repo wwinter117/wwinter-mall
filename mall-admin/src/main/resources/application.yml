@@ -1,12 +1,19 @@
 spring:
   profiles:
     active: dev
+  web:
+    resources:
+      static-locations: classpath:/webapp/
+
+#server:
+#  servlet:
+#    context-path: /mall
 
 # mybatis
 mybatis:
   mapper-locations: classpath:cn/wwinter/mapper/*.xml,classpath*:cn/wwinter/mapper/*.xml
 
-# pagehelper??????
+# pagehelper
 pagehelper:
   helper-dialect: mysql
   autoDialect: true
@@ -24,4 +31,10 @@ logging:
     cn:
       wwinter:
         malldemo: debug
+
+jwt:
+  tokenHeader: Authorization
+  secret: mySecret243982847650849ovsildfbvf
+  expiration: 604800
+  tokenHead: "Bearer "
 
