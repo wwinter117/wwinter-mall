@@ -1,5 +1,6 @@
 package cn.wwinter.malladmin.controller;
 
+import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.CommonResult;
 import cn.wwinter.malladmin.model.dto.PmsProductCategoryDto;
 import cn.wwinter.malladmin.service.ProductCategoryService;
@@ -30,7 +31,7 @@ public class ProductCategoryController {
     @ApiOperation("根据编号查询产品分类信息")
     @GetMapping("/{id}")
     public Object getItem(@PathVariable(value = "id") Long id) {
-        return new CommonResult().success(productCategoryService.getItem(id));
+        return CommonResponse.success(productCategoryService.getItem(id));
     }
 
     @ApiOperation("分页获取产品分类")
@@ -38,58 +39,52 @@ public class ProductCategoryController {
     public Object getList(@PathVariable Long parentId,
                           @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                           @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
-        return new CommonResult().pageSuccess(productCategoryService.getList(parentId, pageNum, pageSize));
+        return CommonResponse.pageSuccess(productCategoryService.getList(parentId, pageNum, pageSize));
     }
 
     @ApiOperation("获取全部产品分类信息")
     @GetMapping("/listAll")
     public Object getList() {
-        return new CommonResult().success(productCategoryService.getList());
+        return CommonResponse.success(productCategoryService.getList());
     }
 
     @ApiOperation("添加产品分类")
     @PostMapping("/create")
     public Object create(@Validated @RequestBody PmsProductCategoryDto pmsProductCategoryDto, BindingResult result) {
-        CommonResult commonResult;
         int count = productCategoryService.create(pmsProductCategoryDto);
         if (count == 1) {
-            commonResult = new CommonResult().success(pmsProductCategoryDto);
             LOGGER.debug("添加成功: {}", pmsProductCategoryDto);
+            return CommonResponse.success(pmsProductCategoryDto);
         } else {
-            commonResult = new CommonResult().failed();
             LOGGER.debug("添加失败: {}", pmsProductCategoryDto);
+            return CommonResponse.failed("添加失败");
         }
-        return commonResult;
     }
 
     @ApiOperation("更新产品分类")
     @PostMapping("/update/{id}")
     public Object update(@PathVariable("id") Long id, @Validated @RequestBody PmsProductCategoryDto pmsProductCategoryDto, BindingResult result) {
-        CommonResult commonResult;
         int count = productCategoryService.update(id, pmsProductCategoryDto);
         if (count == 1) {
-            commonResult = new CommonResult().success(pmsProductCategoryDto);
             LOGGER.debug("更新成功: {}", pmsProductCategoryDto);
+            return CommonResponse.success(pmsProductCategoryDto);
         } else {
-            commonResult = new CommonResult().failed();
             LOGGER.debug("更新失败: {}", pmsProductCategoryDto);
+            return CommonResponse.failed("更新失败");
         }
-        return commonResult;
     }
 
     @ApiOperation("删除产品分类")
     @PostMapping("/delete/{id}")
     public Object delete(@PathVariable("id") Long id) {
         int count = productCategoryService.delete(id);
-        CommonResult commonResult;
         if (count == 1) {
-            commonResult = new CommonResult().success(null);
             LOGGER.debug("删除成功: id={}", id);
+            return CommonResponse.success(id);
         } else {
-            commonResult = new CommonResult().failed();
-            LOGGER.debug("删除成功: id={}", id);
+            LOGGER.debug("删除失败: id={}", id);
+            return CommonResponse.failed("删除失败");
         }
-        return commonResult;
     }
 
 }

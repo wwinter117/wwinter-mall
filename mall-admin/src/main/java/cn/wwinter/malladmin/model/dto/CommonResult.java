@@ -2,18 +2,22 @@ package cn.wwinter.malladmin.model.dto;
 
 import com.github.pagehelper.PageInfo;
 import lombok.Data;
+import org.springframework.validation.BindingResult;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 通用返回对象
  */
 @Data
 public class CommonResult {
-    public static final int SUCCESS = 0;
-    public static final int FAILED = 1;
+    public static final int SUCCESS = 200;
+    public static final int FAILED = 500;
+    public static final int AUTH_FAILED = 400;
+
     public static final int VALIDATE_FAILED = 2;
     private int code;
     private String message;
@@ -65,5 +69,23 @@ public class CommonResult {
         this.code = VALIDATE_FAILED;
         this.message = message;
         return this;
+    }
+
+    public CommonResult authFailed(String message) {
+        this.code = AUTH_FAILED;
+        this.message = message;
+        return this;
+    }
+
+    /**
+     * 参数验证失败使用
+     *
+     * @param result 错误信息
+     */
+    public CommonResult validateFailed(BindingResult result) {
+        return validateFailed(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
+    }
+    public CommonResult authFailed(BindingResult result) {
+        return authFailed(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
     }
 }

@@ -1,5 +1,6 @@
 package cn.wwinter.malladmin.controller;
 
+import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.AdminDto;
 import cn.wwinter.malladmin.model.dto.AdminLoginDto;
 import cn.wwinter.malladmin.model.dto.CommonResult;
@@ -32,21 +33,18 @@ public class AdminController {
     @PostMapping("/register")
     public Object register(@RequestBody AdminDto adminDto, BindingResult result) {
         UmsAdmin umsAdmin = adminService.register(adminDto);
-        CommonResult commonResult;
         if (umsAdmin == null) {
-            commonResult = new CommonResult().failed();
-        } else {
-            commonResult = new CommonResult().success(umsAdmin);
+            return CommonResponse.failed("注册失败");
         }
-        return commonResult;
+        return CommonResponse.success(umsAdmin);
     }
 
     @PostMapping("/login")
     public Object login(@RequestBody AdminLoginDto adminLoginDto, BindingResult bindingResult) {
         String token = adminService.login(adminLoginDto.getUsername(), adminLoginDto.getPassword());
         if (token == null) {
-            return new CommonResult().authFailed(bindingResult);
+            return CommonResponse.authFailed();
         }
-        return new CommonResult().success(token);
+        return CommonResponse.success(token);
     }
 }

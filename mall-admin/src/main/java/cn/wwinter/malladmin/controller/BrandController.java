@@ -1,5 +1,6 @@
 package cn.wwinter.malladmin.controller;
 
+import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.CommonResult;
 import cn.wwinter.malladmin.model.dto.PmsBrandDto;
 import cn.wwinter.malladmin.service.BrandService;
@@ -24,7 +25,7 @@ import java.util.List;
 @RequestMapping("/brand")
 @AllArgsConstructor
 @Slf4j
-@Api(tags = "BrandController", description = "商品品牌管理")
+@Api(tags = "BrandController")
 public class BrandController {
 
     private final BrandService brandService;
@@ -32,7 +33,7 @@ public class BrandController {
     @ApiOperation("根据编号查询品牌信息")
     @GetMapping("/{id}")
     public Object getItem(@PathVariable(value = "id") Long id) {
-        return new CommonResult().success(brandService.getItem(id));
+        return CommonResponse.success(brandService.getItem(id));
     }
 
     @ApiOperation("分页获取品牌信息")
@@ -40,102 +41,90 @@ public class BrandController {
     public Object getList(@RequestParam(value = "keyword", required = false) String keyword,
                           @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                           @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
-        return new CommonResult().pageSuccess(brandService.getList(keyword, pageNum, pageSize));
+        return CommonResponse.pageSuccess(brandService.getList(keyword, pageNum, pageSize));
     }
 
     @ApiOperation("获取全部品牌信息")
     @GetMapping("/listAll")
     public Object getList() {
-        return new CommonResult().success(brandService.getList());
+        return CommonResponse.success(brandService.getList());
     }
 
     @ApiOperation("添加品牌")
     @PostMapping("/create")
     public Object create(@Validated @RequestBody PmsBrandDto pmsBrandDto, BindingResult result) {
-        CommonResult commonResult;
         int count = brandService.create(pmsBrandDto);
         if (count == 1) {
-            commonResult = new CommonResult().success(pmsBrandDto);
             log.debug("添加成功: {}", pmsBrandDto);
+            return CommonResponse.success(pmsBrandDto);
         } else {
-            commonResult = new CommonResult().failed();
             log.debug("添加失败: {}", pmsBrandDto);
+            return CommonResponse.failed("添加失败");
         }
-        return commonResult;
     }
 
     @ApiOperation("更新品牌")
     @PostMapping("/update/{id}")
     public Object update(@PathVariable("id") Long id, @Validated @RequestBody PmsBrandDto pmsBrandDto, BindingResult result) {
-        CommonResult commonResult;
         int count = brandService.update(id, pmsBrandDto);
         if (count == 1) {
-            commonResult = new CommonResult().success(pmsBrandDto);
             log.debug("更新成功: {}", pmsBrandDto);
+            return CommonResponse.success(pmsBrandDto);
         } else {
-            commonResult = new CommonResult().failed();
             log.debug("更新失败: {}", pmsBrandDto);
+            return CommonResponse.failed("更新失败");
         }
-        return commonResult;
     }
 
     @ApiOperation("批量更新品牌显示状态")
     @PostMapping("/update/showStatus")
     public Object updateShowStatusBatch(@RequestParam("ids") List<Long> ids, @RequestParam("showStatus") Integer showStatus) {
         int count = brandService.updateShowStatusBatch(ids, showStatus);
-        CommonResult commonResult;
         if (count > 0) {
             log.debug("品牌显示状态更新成功: ids={}", ids);
-            commonResult = new CommonResult().success(count);
+            return CommonResponse.success(ids);
         } else {
             log.error("品牌显示状态更新失败: ids={}", ids);
-            commonResult = new CommonResult().failed();
+            return CommonResponse.failed("品牌显示状态更新失败");
         }
-        return commonResult;
     }
 
     @ApiOperation("批量更新厂家制造商状态")
     @PostMapping("/update/factoryStatus")
     public Object updateFactoryStatusBatch(@RequestParam("ids") List<Long> ids, @RequestParam("factoryStatus") Integer factoryStatus) {
         int count = brandService.updateFactoryStatusBatch(ids, factoryStatus);
-        CommonResult commonResult;
         if (count > 0) {
             log.debug("厂家制造商状态更新成功: ids={}", ids);
-            commonResult = new CommonResult().success(count);
+            return CommonResponse.success(ids);
         } else {
             log.error("厂家制造商状态更新失败: ids={}", ids);
-            commonResult = new CommonResult().failed();
+            return CommonResponse.failed("厂家制造商状态更新失败");
         }
-        return commonResult;
     }
 
     @ApiOperation("删除品牌")
     @PostMapping("/delete/{id}")
     public Object delete(@PathVariable("id") Long id) {
         int count = brandService.delete(id);
-        CommonResult commonResult;
         if (count == 1) {
-            commonResult = new CommonResult().success(null);
             log.debug("删除成功: id={}", id);
+            return CommonResponse.success(id);
         } else {
-            commonResult = new CommonResult().failed();
-            log.debug("删除成功: id={}", id);
+            log.debug("删除失败: id={}", id);
+            return CommonResponse.failed("删除失败");
         }
-        return commonResult;
     }
 
     @ApiOperation("批量删除品牌")
     @PostMapping("/delete/batch")
     public Object deleteBatch(@RequestParam("ids") List<Long> ids) {
         int count = brandService.deleteBatch(ids);
-        CommonResult commonResult;
         if (count > 0) {
-            log.debug("删除成功: ids={}", ids);
-            commonResult = new CommonResult().success(count);
+            log.debug("批量删除成功: ids={}", ids);
+            return CommonResponse.success(ids);
         } else {
-            log.debug("删除成功: ids={}", ids);
-            commonResult = new CommonResult().failed();
+            log.debug("批量删除失败: ids={}", ids);
+            return CommonResponse.failed("批量删除失败");
         }
-        return commonResult;
     }
 }

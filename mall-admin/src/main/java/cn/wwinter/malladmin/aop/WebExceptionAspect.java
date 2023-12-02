@@ -1,6 +1,6 @@
 package cn.wwinter.malladmin.aop;
 
-import cn.wwinter.malladmin.model.dto.CommonResult;
+import cn.wwinter.malladmin.model.common.CommonResponse;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -8,8 +8,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
-
-import java.util.Objects;
 
 /**
  * ClassName: WebExceptionAspect
@@ -33,7 +31,7 @@ public class WebExceptionAspect {
         for (Object arg : args) {
             if (arg instanceof BindingResult bindingResult) {
                 if (bindingResult.hasErrors()) {
-                    return new CommonResult().validateFailed(bindingResult);
+                    return CommonResponse.validateFailed(bindingResult);
                 }
             }
         }

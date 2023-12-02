@@ -1,5 +1,6 @@
 package cn.wwinter.malladmin.controller;
 
+import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.CommonResult;
 import cn.wwinter.malladmin.service.ProductAttributeCategoryService;
 import io.swagger.annotations.Api;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/ProductAttributeCategory")
 @AllArgsConstructor
-@Api(tags = "ProductAttributeCategoryController", description = "商品属性分类管理")
+@Api(tags = "ProductAttributeCategoryController")
 public class ProductAttributeCategoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductAttributeCategoryController.class);
@@ -30,20 +31,20 @@ public class ProductAttributeCategoryController {
     @PostMapping("/create")
     public Object create(String name) {
         int count = productAttributeCategoryService.create(name);
-        CommonResult commonResult;
         if (count > 0) {
             LOGGER.debug("添加成功: name={}", name);
-            commonResult = new CommonResult().success(name);
+            return CommonResponse.success(name);
         } else {
             LOGGER.debug("添加失败: name={}", name);
-            commonResult = new CommonResult().failed();
+            return CommonResponse.failed("添加失败");
         }
-        return commonResult;
     }
 
     @ApiOperation("分页获取所有商品属性分类")
     @GetMapping("/list")
     public Object getList(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
-        return new CommonResult().success(productAttributeCategoryService.getList(pageNum, pageSize));
+        return CommonResponse.success(productAttributeCategoryService.getList(pageNum, pageSize));
     }
+
+
 }
