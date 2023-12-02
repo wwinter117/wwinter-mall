@@ -1,14 +1,42 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理首页</title>
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
+<!-- 页头 -->
+<header id="pageHeader">
+    <div class="logo">
+        <img src="../images/logo.png" alt="Logo">
+        <span class="brandName">Wwinter</span>
+    </div>
+    <div class="searchBox">
+        <input type="text" placeholder="查找 (⌘+K)"/>
+    </div>
 
-<h1>Welcome to the Home Page!</h1>
+    <div class="userSection">
+        <div class="userProfile">
+            <img src="../images/logo.JPG" alt="User Avatar">
+            <span class="username">Wwinter117</span>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">▼</button>
+            <div class="dropdown-content">
+                <a href="#">设置</a>
+                <a href="#">退出登录</a>
+            </div>
+        </div>
+        <div>
+            <button onclick="logout()">注销</button>
+        </div>
+    </div>
+</header>
 
+<!-- 品牌、商品分类、用户等其他内容... -->
+
+<script src="../js/index.js"></script>
 </body>
 </html>
