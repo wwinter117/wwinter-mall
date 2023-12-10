@@ -1,11 +1,11 @@
 package cn.wwinter.malladmin.service.impl;
 
-import cn.wwinter.malladmin.model.dto.AdminDto;
+import cn.wwinter.malladmin.action.sqlAction.admin.UmsAdminSqlAction;
+import cn.wwinter.malladmin.model.common.CommonResponse;
+import cn.wwinter.malladmin.model.dto.admin.UmsAdminDto;
+import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
 import cn.wwinter.malladmin.service.AdminService;
 import cn.wwinter.malladmin.util.JwtTokenUtil;
-import cn.wwinter.mapper.UmsAdminMapper;
-import cn.wwinter.model.UmsAdmin;
-import cn.wwinter.model.UmsAdminExample;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -32,31 +33,29 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class AdminServiceImpl implements AdminService {
-    private final UmsAdminMapper umsAdminMapper;
+    private final UmsAdminSqlAction umsAdminSqlAction;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
-    @Override
 
-    public UmsAdmin register(AdminDto adminDto) {
+    @Override
+    public CommonResponse register(UmsAdminDto adminDto) {
+        List<UmsAdmin> umsAdmins = umsAdminSqlAction.selectByUsername(adminDto.getUsername());
+        if (!CollectionUtils.isEmpty(umsAdmins)) {
+            return CommonResponse.failed("注册失败: 用户名已存在");
+        }
         UmsAdmin umsAdmin = new UmsAdmin();
         BeanUtils.copyProperties(adminDto, umsAdmin);
-        UmsAdminExample example = new UmsAdminExample();
-        example.createCriteria().andUsernameEqualTo(umsAdmin.getUsername());
-        List<UmsAdmin> umsAdmins = umsAdminMapper.selectByExample(example);
-        if (!umsAdmins.isEmpty()) {
-            return null;
-        }
         String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
         umsAdmin.setPassword(encodePassword);
-        umsAdminMapper.insert(umsAdmin);
-        return umsAdmin;
+        umsAdminSqlAction.insertIterm(umsAdmin);
+        return CommonResponse.success("");
     }
 
     @Override
-    public String login(String username, String password) {
+    public CommonResponse login(String username, String password) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         String token = null;
         try {
@@ -66,19 +65,13 @@ public class AdminServiceImpl implements AdminService {
             token = jwtTokenUtil.generateToken(userDetails);
         } catch (AuthenticationException e) {
             LOGGER.warn("登录异常: {}", e.getMessage());
+            throw new RuntimeException(e);
         }
-        return token;
-    }
-
-    @Override
-    public UmsAdmin getAdminByUsername(String username) {
-        UmsAdminExample example = new UmsAdminExample();
-        example.createCriteria().andUsernameEqualTo(username);
-        List<UmsAdmin> umsAdmins = umsAdminMapper.selectByExample(example);
-        if (umsAdmins != null && !umsAdmins.isEmpty()) {
-            return umsAdmins.get(0);
+        if (token == null) {
+            return CommonResponse.authFailed();
         }
-        return null;
+        LOGGER.info("用户: {} 登录成功！返回token: {}", username, token);
+        return CommonResponse.success(token);
     }
 
 }

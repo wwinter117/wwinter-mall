@@ -1,8 +1,8 @@
 package cn.wwinter.malladmin.service.impl;
 
-import cn.wwinter.mapper.PmsProductAttributeCategoryMapper;
-import cn.wwinter.model.PmsProductAttributeCategory;
-import cn.wwinter.model.PmsProductAttributeCategoryExample;
+import cn.wwinter.malladmin.action.sqlAction.product.PmsProductAttributeCategorySqlAction;
+import cn.wwinter.malladmin.model.common.CommonResponse;
+import cn.wwinter.malladmin.model.entity.product.PmsProductAttributeCategory;
 import cn.wwinter.malladmin.service.ProductAttributeCategoryService;
 import com.github.pagehelper.PageHelper;
 import lombok.AllArgsConstructor;
@@ -20,19 +20,20 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ProductAttributeCategoryServiceImpl implements ProductAttributeCategoryService {
-    private final PmsProductAttributeCategoryMapper productAttributeCategoryMapper;
+    private final PmsProductAttributeCategorySqlAction pmsProductAttributeCategorySqlAction;
 
     @Override
-    public int create(String name) {
+    public CommonResponse create(String name) {
         PmsProductAttributeCategory productAttributeCategory = new PmsProductAttributeCategory();
         productAttributeCategory.setName(name);
-        return productAttributeCategoryMapper.insertSelective(productAttributeCategory);
+        pmsProductAttributeCategorySqlAction.insertIterm(productAttributeCategory);
+        return CommonResponse.success(productAttributeCategory);
     }
 
     @Override
-    public List<PmsProductAttributeCategory> getList(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        return productAttributeCategoryMapper.selectByExample(new PmsProductAttributeCategoryExample());
+    public CommonResponse getList(Integer pageNum, Integer pageSize) {
+        List<PmsProductAttributeCategory> pmsProductAttributeCategoryList = pmsProductAttributeCategorySqlAction.getList();
+        return CommonResponse.success(pmsProductAttributeCategoryList);
     }
 
 }

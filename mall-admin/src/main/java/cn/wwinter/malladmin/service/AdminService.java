@@ -1,7 +1,8 @@
 package cn.wwinter.malladmin.service;
 
-import cn.wwinter.malladmin.model.dto.AdminDto;
-import cn.wwinter.model.UmsAdmin;
+import cn.wwinter.malladmin.model.common.CommonResponse;
+import cn.wwinter.malladmin.model.dto.admin.UmsAdminDto;
+import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
 
 /**
  * ClassName: AdminService
@@ -10,10 +11,9 @@ import cn.wwinter.model.UmsAdmin;
  * Datetime: 2023/12/1
  * Author: zhangdd
  */
-public interface AdminService {
-    UmsAdmin register(AdminDto adminDto);
+public interface AdminService  {
+    CommonResponse register(UmsAdminDto adminDto);
 
-    String login(String username, String password);
+    CommonResponse login(String username, String password);
 
-    UmsAdmin getAdminByUsername(String username);
 }

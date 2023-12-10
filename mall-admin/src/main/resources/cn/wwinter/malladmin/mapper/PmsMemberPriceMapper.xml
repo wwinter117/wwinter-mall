@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.wwinter.malladmin.mapper.PmsMemberPriceMapper">
+
+    <resultMap id="pmsMemberPriceMap" type="cn.wwinter.malladmin.model.entity.product.PmsMemberPrice">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+        <result column="product_id" property="productId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="member_level_id" property="memberLevelId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="member_price" property="memberPrice" jdbcType="DECIMAL" javaType="BigDecimal"/>
+        <result column="member_level_name" property="memberLevelName" jdbcType="VARCHAR" javaType="String"/>
+    </resultMap>
+
+    <sql id="pmsMemberPriceColumn">
+        id,
+        product_id,
+        member_level_id,
+        member_price,
+        member_level_name
+    </sql>
+
+    <!--批量新增回写主键支持-->
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_member_price (<include refid="pmsMemberPriceColumn"/>) VALUES
+        <foreach collection="list" separator="," item="item" index="index">
+            (
+            #{item.id},
+            #{item.productId},
+            #{item.memberLevelId},
+            #{item.memberLevelId},
+            #{item.memberLevelName}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

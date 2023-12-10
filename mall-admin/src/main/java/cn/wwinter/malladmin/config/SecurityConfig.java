@@ -1,11 +1,9 @@
 package cn.wwinter.malladmin.config;
 
+import cn.wwinter.malladmin.action.sqlAction.admin.UmsAdminSqlAction;
 import cn.wwinter.malladmin.filter.JwtAuthenticationTokenFilter;
-import cn.wwinter.malladmin.model.dto.AdminUserDetails;
-import cn.wwinter.malladmin.service.AdminService;
-import cn.wwinter.mapper.UmsAdminMapper;
-import cn.wwinter.model.UmsAdmin;
-import cn.wwinter.model.UmsAdminExample;
+import cn.wwinter.malladmin.model.dto.admin.AdminUserDetails;
+import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +12,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -37,7 +34,7 @@ import java.util.List;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig {
-    private final UmsAdminMapper adminMapper;
+    private final UmsAdminSqlAction umsAdminSqlAction;
     /**
      * 白名单
      */
@@ -51,8 +48,12 @@ public class SecurityConfig {
             "/*/*.html",
             "/*/*.css",
             "/*/*.js",
+            "**"
     };
 
+    /**
+     * SecurityFilterChain
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) throws Exception {
         http
@@ -69,16 +70,17 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * UserDetailsService
+     */
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                UmsAdminExample example = new UmsAdminExample();
-                example.createCriteria().andUsernameEqualTo(username);
-                List<UmsAdmin> umsAdmins = adminMapper.selectByExample(example);
+                List<UmsAdmin> umsAdmins = umsAdminSqlAction.selectByUsername(username);
                 UmsAdmin admin = null;
-                if (umsAdmins != null && !umsAdmins.isEmpty() && username.equals((admin = umsAdmins.get(0)).getUsername())) {
+                if (!CollectionUtils.isEmpty(umsAdmins) && username.equals((admin = umsAdmins.get(0)).getUsername())) {
                     return new AdminUserDetails(admin);
                 }
                 throw new UsernameNotFoundException("用户名或密码错误");

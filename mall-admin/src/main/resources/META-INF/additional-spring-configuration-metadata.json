@@ -19,5 +19,15 @@
       "name": "logging.jwt.tokenHead",
       "type": "java.lang.String",
       "description": "Description for logging.jwt.jwt.tokenHead."
+    },
+    {
+      "name": "mybatis.sqlSessionFactory.sqlSessionFactory-ref",
+      "type": "java.lang.String",
+      "description": "Description for mybatis.sqlSessionFactory.sqlSessionFactory-ref."
+    },
+    {
+      "name": "mybatis.mapperLocations",
+      "type": "java.lang.String",
+      "description": "Description for mybatis.mapperLocations."
     }
   ] }

@@ -1,6 +1,8 @@
 package cn.wwinter.malladmin.service;
 
-import cn.wwinter.model.PmsProductAttributeCategory;
+
+import cn.wwinter.malladmin.model.common.CommonResponse;
+import cn.wwinter.malladmin.model.entity.product.PmsProductAttributeCategory;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  * Author: zhangdd
  */
 public interface ProductAttributeCategoryService {
-    int create(String name);
+    CommonResponse create(String name);
 
-    List<PmsProductAttributeCategory> getList(Integer pageNum, Integer pageSize);
+    CommonResponse getList(Integer pageNum, Integer pageSize);
 }

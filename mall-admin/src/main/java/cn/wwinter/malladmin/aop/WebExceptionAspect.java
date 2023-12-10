@@ -10,11 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 /**
- * ClassName: WebExceptionAspect
- * Package: cn.wwinter.malladmin.aop
- * Description:
- * Datetime: 2023/11/30
- * Author: zhangdd
+ * @Description: 统一异常处理
+ * @Date: 2023/11/30
+ * @Author: zhangdd
  */
 @Aspect
 @Component
@@ -37,4 +35,6 @@ public class WebExceptionAspect {
         }
         return joinPoint.proceed();
     }
+
+
 }

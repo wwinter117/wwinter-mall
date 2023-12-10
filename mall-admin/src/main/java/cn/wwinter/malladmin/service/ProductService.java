@@ -6,7 +6,8 @@ package cn.wwinter.malladmin.service;/**
  * Author: zhangdd
  */
 
-import cn.wwinter.malladmin.model.dto.PmsProductDto;
+import cn.wwinter.malladmin.model.common.CommonResponse;
+import cn.wwinter.malladmin.model.dto.product.PmsProductCombinationDto;
 
 /**
  * @Description:
@@ -14,5 +15,5 @@ import cn.wwinter.malladmin.model.dto.PmsProductDto;
  * @Author: zhangdd
  */
 public interface ProductService {
-    int create(PmsProductDto pmsProductDto);
+    CommonResponse create(PmsProductCombinationDto pmsProductCombinationDto);
 }

@@ -26,12 +26,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- * ClassName: WebLogAspect
- * Package: cnn.wwinter.malladmin.aop
- * Description:
- * Datetime: 2023/11/29
- * Author: zhangdd
+ * @Description: 统一日志捕获
+ * @Date: 2023/11/30
+ * @Author: zhangdd
  */
 @Component
 @Aspect
@@ -40,7 +39,7 @@ public class WebLogAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
-    private final ThreadLocal<Long> startTime = new ThreadLocal<>();
+    private final ThreadLocal<Long> START_TIME = new ThreadLocal<>();
 
     @Pointcut("execution(public * cn.wwinter.malladmin.controller.*.*(..))")
     public void logPoint() {
@@ -48,7 +47,7 @@ public class WebLogAspect {
 
     @Before("logPoint()")
     public void doBefore(JoinPoint joinPoint) {
-        startTime.set(System.currentTimeMillis());
+        START_TIME.set(System.currentTimeMillis());
     }
 
     @Around("logPoint()")
@@ -68,8 +67,8 @@ public class WebLogAspect {
             // 执行切点方法
             result = joinPoint.proceed();
             webLog.setBasePath(RequestUtils.getBasePath(request));
-            webLog.setStartTime(startTime.get());
-            webLog.setSpendTime((int) (System.currentTimeMillis() - startTime.get()));
+            webLog.setStartTime(START_TIME.get());
+            webLog.setSpendTime((int) (System.currentTimeMillis() - START_TIME.get()));
             webLog.setUri(request.getRequestURI());
             webLog.setUrl(request.getRequestURL().toString());
             webLog.setMethod(request.getMethod());

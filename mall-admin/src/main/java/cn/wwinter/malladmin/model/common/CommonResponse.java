@@ -19,44 +19,44 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CommonResponse<T> {
+public class CommonResponse {
     private int code;
     private String message;
-    private T data;
+    private Object data;
 
     /**
      * 成功
      */
-    public static <T> CommonResponse<T> success(T data) {
-        return new CommonResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), data);
+    public static CommonResponse success(Object data) {
+        return new CommonResponse(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), data);
     }
 
     /**
      * 成功，返回分页数据
      */
-    public static <T> CommonResponse<PageResult<T>> pageSuccess(List<T> data) {
-        return new CommonResponse<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), new PageResult<T>(data));
+    public static <T> CommonResponse pageSuccess(List<T> data) {
+        return new CommonResponse(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), new PageResult<T>(data));
     }
 
     /**
      * 失败
      */
-    public static <T> CommonResponse<T> failed(String message) {
-        return new CommonResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase() + ": " + message, null);
+    public static CommonResponse failed(String message) {
+        return new CommonResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, null);
     }
 
     /**
      * 参数校验失败
      */
-    public static <T> CommonResponse<T> validateFailed(@Nonnull BindingResult bindingResult) {
-        return new CommonResponse<>(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase() + ": " + Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage(), null);
+    public static CommonResponse validateFailed(@Nonnull BindingResult bindingResult) {
+        return new CommonResponse(HttpStatus.BAD_REQUEST.value(), Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage(), null);
     }
 
     /**
      * 认证失败
      */
-    public static <T> CommonResponse<T> authFailed() {
-        return new CommonResponse<>(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase() + ": 用户名或密码错误", null);
+    public static CommonResponse authFailed() {
+        return new CommonResponse(HttpStatus.UNAUTHORIZED.value(),  "用户名或密码错误", null);
     }
 
 //    public static <T> ResponseEntity<T> authFailed(T responseBody) {
@@ -89,7 +89,7 @@ public class CommonResponse<T> {
         }
 
         public PageResult(List<T> data) {
-            PageInfo<T> pageInfo = new PageInfo<>(data);
+            PageInfo<T> pageInfo = new PageInfo(data);
             this.pageSize = pageInfo.getPageSize();
             this.totalPage = pageInfo.getPages();
             this.pageNum = pageInfo.getPageNum();

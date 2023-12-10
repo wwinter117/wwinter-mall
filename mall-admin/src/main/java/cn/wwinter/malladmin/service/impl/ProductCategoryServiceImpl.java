@@ -1,11 +1,13 @@
 package cn.wwinter.malladmin.service.impl;
 
-import cn.wwinter.mapper.PmsProductCategoryMapper;
-import cn.wwinter.model.PmsProductCategory;
-import cn.wwinter.model.PmsProductCategoryExample;
-import cn.wwinter.malladmin.model.dto.PmsProductCategoryDto;
+import cn.wwinter.malladmin.action.sqlAction.product.PmsProductCategorySqlAction;
+import cn.wwinter.malladmin.model.common.CommonResponse;
+import cn.wwinter.malladmin.model.dto.product.PmsProductCategoryDto;
+import cn.wwinter.malladmin.model.entity.product.PmsProductCategory;
 import cn.wwinter.malladmin.service.ProductCategoryService;
+import com.github.pagehelper.IPage;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -23,45 +25,48 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
-    private final PmsProductCategoryMapper productCategoryMapper;
+    private final PmsProductCategorySqlAction pmsProductCategorySqlAction;
 
     @Override
-    public int create(PmsProductCategoryDto pmsProductCategoryDto) {
-        PmsProductCategory productCategory = new PmsProductCategory();
-        BeanUtils.copyProperties(pmsProductCategoryDto, productCategory);
-        return productCategoryMapper.insert(productCategory);
+    public CommonResponse getItem(Long id) {
+        PmsProductCategory pmsProductCategory = pmsProductCategorySqlAction.getIterm(id);
+        return CommonResponse.success(pmsProductCategory);
     }
 
     @Override
-    public int update(Long id, PmsProductCategoryDto pmsProductCategoryDto) {
+    public CommonResponse create(PmsProductCategoryDto pmsProductCategoryDto) {
+        PmsProductCategory productCategory = new PmsProductCategory();
+        BeanUtils.copyProperties(pmsProductCategoryDto, productCategory);
+        pmsProductCategorySqlAction.insertIterm(productCategory);
+        return CommonResponse.success(productCategory);
+    }
+
+    @Override
+    public CommonResponse update(Long id, PmsProductCategoryDto pmsProductCategoryDto) {
         PmsProductCategory productCategory = new PmsProductCategory();
         BeanUtils.copyProperties(pmsProductCategoryDto, productCategory);
         productCategory.setId(id);
-        return productCategoryMapper.updateByPrimaryKeySelective(productCategory);
+        pmsProductCategorySqlAction.updateIterm(productCategory);
+        return CommonResponse.success(productCategory);
     }
 
     @Override
-    public List<PmsProductCategory> getList(Long parentId, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        PmsProductCategoryExample example = new PmsProductCategoryExample();
-        example.setOrderByClause("sort desc");
-        example.createCriteria().andParentIdEqualTo(parentId);
-        return productCategoryMapper.selectByExample(example);
+    public CommonResponse getList(Long parentId, Integer pageNum, Integer pageSize) {
+        PageInfo<PmsProductCategory> pmsProductCategoryIPage = pmsProductCategorySqlAction.selectByParentId(parentId, pageNum, pageSize);
+        return CommonResponse.success(pmsProductCategoryIPage);
     }
 
     @Override
-    public List<PmsProductCategory> getList() {
-        return productCategoryMapper.selectByExample(new PmsProductCategoryExample());
+    public CommonResponse getList() {
+        List<PmsProductCategory> pmsProductCategoryList = pmsProductCategorySqlAction.getList();
+        return CommonResponse.success(pmsProductCategoryList);
     }
 
     @Override
-    public int delete(Long id) {
-        return productCategoryMapper.deleteByPrimaryKey(id);
+    public CommonResponse delete(Long id) {
+        pmsProductCategorySqlAction.deleteIterm(id);
+        return CommonResponse.success(id);
     }
 
-    @Override
-    public Object getItem(Long id) {
-        return productCategoryMapper.selectByPrimaryKey(id);
-    }
 
 }

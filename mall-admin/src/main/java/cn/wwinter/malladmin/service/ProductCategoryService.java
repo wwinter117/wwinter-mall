@@ -1,7 +1,8 @@
 package cn.wwinter.malladmin.service;
 
-import cn.wwinter.model.PmsProductCategory;
-import cn.wwinter.malladmin.model.dto.PmsProductCategoryDto;
+import cn.wwinter.malladmin.model.common.CommonResponse;
+import cn.wwinter.malladmin.model.dto.product.PmsProductCategoryDto;
+import cn.wwinter.malladmin.model.entity.product.PmsProductCategory;
 
 import java.util.List;
 
@@ -13,15 +14,15 @@ import java.util.List;
  * Author: zhangdd
  */
 public interface ProductCategoryService {
-    int create(PmsProductCategoryDto pmsProductCategoryDto);
+    CommonResponse create(PmsProductCategoryDto pmsProductCategoryDto);
 
-    int update(Long id, PmsProductCategoryDto pmsProductCategoryDto);
+    CommonResponse update(Long id, PmsProductCategoryDto pmsProductCategoryDto);
 
-    List<PmsProductCategory> getList(Long parentId, Integer pageNum, Integer pageSize);
+    CommonResponse getList(Long parentId, Integer pageNum, Integer pageSize);
 
-    List<PmsProductCategory> getList();
+    CommonResponse getList();
 
-    int delete(Long id);
+    CommonResponse delete(Long id);
 
-    Object getItem(Long id);
+    CommonResponse getItem(Long id);
 }

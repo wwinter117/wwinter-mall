@@ -1,6 +1,6 @@
 package cn.wwinter.mapper;
 
-import cn.wwinter.model.CmsPrefrenceAreaProductRelation;
+import cn.wwinter.model.CmsPreferenceAreaProductRelation;
 import cn.wwinter.model.CmsPrefrenceAreaProductRelationExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -12,19 +12,19 @@ public interface CmsPrefrenceAreaProductRelationMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(CmsPrefrenceAreaProductRelation record);
+    int insert(CmsPreferenceAreaProductRelation record);
 
-    int insertSelective(CmsPrefrenceAreaProductRelation record);
+    int insertSelective(CmsPreferenceAreaProductRelation record);
 
-    List<CmsPrefrenceAreaProductRelation> selectByExample(CmsPrefrenceAreaProductRelationExample example);
+    List<CmsPreferenceAreaProductRelation> selectByExample(CmsPrefrenceAreaProductRelationExample example);
 
-    CmsPrefrenceAreaProductRelation selectByPrimaryKey(Long id);
+    CmsPreferenceAreaProductRelation selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") CmsPrefrenceAreaProductRelation record, @Param("example") CmsPrefrenceAreaProductRelationExample example);
+    int updateByExampleSelective(@Param("record") CmsPreferenceAreaProductRelation record, @Param("example") CmsPrefrenceAreaProductRelationExample example);
 
-    int updateByExample(@Param("record") CmsPrefrenceAreaProductRelation record, @Param("example") CmsPrefrenceAreaProductRelationExample example);
+    int updateByExample(@Param("record") CmsPreferenceAreaProductRelation record, @Param("example") CmsPrefrenceAreaProductRelationExample example);
 
-    int updateByPrimaryKeySelective(CmsPrefrenceAreaProductRelation record);
+    int updateByPrimaryKeySelective(CmsPreferenceAreaProductRelation record);
 
-    int updateByPrimaryKey(CmsPrefrenceAreaProductRelation record);
+    int updateByPrimaryKey(CmsPreferenceAreaProductRelation record);
 }

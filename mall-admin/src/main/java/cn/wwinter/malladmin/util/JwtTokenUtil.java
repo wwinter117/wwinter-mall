@@ -31,15 +31,16 @@ import java.util.Map;
 @Component
 public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
-    private static final String CLAIM_KEY_USERNAME = "sub";
+    private static final String CLAIM_KEY_USERNAME = Claims.SUBJECT;
     private static final String CLAIM_KEY_CREATED = "created";
+    private static final String CLAIM_KEY_EXPIRATION = Claims.EXPIRATION;
     @Value("${jwt.secret}")
     private String secret;
     @Value("${jwt.expiration}")
     private Long expiration;
 
     /**
-     * 根据负责生成JWT的token
+     * 根据claims和加密后的自定义secret生成JWT的token
      */
     private String generateToken(Map<String, Object> claims) {
         byte[] keyBytes = Base64.getEncoder().encode(secret.getBytes());
@@ -47,7 +48,7 @@ public class JwtTokenUtil {
         return Jwts.builder()
                 .claims(claims)
                 .expiration(generateExpirationDate())
-                .signWith(key)
+                .signWith(key) // 登录密钥
                 .compact();
     }
 
@@ -124,7 +125,8 @@ public class JwtTokenUtil {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
-        claims.put(CLAIM_KEY_CREATED, new Date());
+//        claims.put(CLAIM_KEY_CREATED, new Date());
+        claims.put(CLAIM_KEY_EXPIRATION, generateExpirationDate());
         return generateToken(claims);
     }
 
@@ -140,7 +142,8 @@ public class JwtTokenUtil {
      */
     public String refreshToken(String token) {
         Claims claims = getClaimsFromToken(token);
-        claims.put(CLAIM_KEY_CREATED, new Date());
+//        claims.put(CLAIM_KEY_CREATED, new Date());
+        claims.put(CLAIM_KEY_EXPIRATION, generateExpirationDate());
         return generateToken(claims);
     }
 }

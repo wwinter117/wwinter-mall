@@ -1,7 +1,8 @@
 package cn.wwinter.malladmin.service;
 
-import cn.wwinter.model.PmsBrand;
-import cn.wwinter.malladmin.model.dto.PmsBrandDto;
+import cn.wwinter.malladmin.model.common.CommonResponse;
+import cn.wwinter.malladmin.model.dto.brand.PmsBrandDto;
+import cn.wwinter.malladmin.model.entity.brand.PmsBrand;
 
 import java.util.List;
 
@@ -14,21 +15,21 @@ import java.util.List;
  */
 public interface BrandService {
 
-    PmsBrand getItem(Long id);
+    CommonResponse getItem(Long id);
 
-    List<PmsBrand> getList();
+    CommonResponse getList(String keyword, Integer pageNum, Integer pageSize);
 
-    List<PmsBrand> getList(String keyword, Integer pageNum, Integer pageSize);
+    CommonResponse getList();
 
-    int create(PmsBrandDto pmsBrandDto);
+    CommonResponse create(PmsBrandDto pmsBrandDto);
 
-    int update(Long id, PmsBrandDto pmsBrandDto);
+    CommonResponse update(Long id, PmsBrandDto pmsBrandDto);
 
-    int updateShowStatusBatch(List<Long> ids, Integer showStatus);
+    CommonResponse updateShowStatusBatch(List<Long> ids, Integer showStatus);
 
-    int updateFactoryStatusBatch(List<Long> ids, Integer factoryStatus);
+    CommonResponse updateFactoryStatusBatch(List<Long> ids, Integer factoryStatus);
 
-    int delete(Long id);
+    CommonResponse delete(Long id);
 
-    int deleteBatch(List<Long> ids);
+    CommonResponse deleteBatch(List<Long> ids);
 }

@@ -37,12 +37,15 @@ async function login() {
 
         const data = await response.json();
 
-        if (response.ok) {
-            alert('Login successful!');
+        if (data.code === 200) {
+            alert('登录成功!');
             // 页面跳转到首页
-            window.location.href = '../html/index.html';
+            // 1秒后跳转到首页
+            setTimeout(() => {
+                window.location.href = '../html/index.html';
+            }, 1000);
         } else {
-            alert(`Login failed: ${data.message}`);
+            alert(`登录失败: ${data.message}`);
         }
     } catch (error) {
         console.error('Error during login:', error);
@@ -57,7 +60,7 @@ async function register() {
 
     // Validate password and confirmPassword
     if (password !== confirmPassword) {
-        alert('Passwords do not match');
+        alert('密码不匹配, 请重新输入');
         return;
     }
 
@@ -72,17 +75,15 @@ async function register() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
         });
-
         const data = await response.json();
-
-        if (response.ok) {
-            alert('Registration successful!');
+        if (200 === data.code) {
+            alert(`注册成功`);
             // Automatically switch to the login form after successful registration
             showLoginForm();
         } else {
-            alert(`Registration failed: ${data.message}`);
+            alert(`注册失败: ${data.message}`);
         }
     } catch (error) {
         console.error('Error during registration:', error);
