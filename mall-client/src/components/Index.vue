@@ -17,7 +17,7 @@
         <img src="../images/notice_通知.svg" alt="notice">
         <span class="notice-info">1</span>
       </div>
-      <div class="userProfile">
+      <div class="userProfile" @click="goToLogin()">
         <img src="../images/user2.svg" alt="User Avatar">
         <span class="username">Wwinter117</span>
       </div>
@@ -108,12 +108,16 @@
 
 
 <script>
+
 export default {
-  name: 'HelloWorld',
+  name: 'Index-Js',
   props: {
     msg: String
   },
   methods: {
+    goToLogin() {
+      this.routes.push('/login');
+    },
     updateMenuItems(menuItem) {
       // 获取导航路径元素
       const menuItems = document.getElementById('menu-items');
