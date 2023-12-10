@@ -47,8 +47,7 @@ public class SecurityConfig {
             "/*.html",
             "/*/*.html",
             "/*/*.css",
-            "/*/*.js",
-            "**"
+            "/*/*.js"
     };
 
     /**
@@ -64,8 +63,8 @@ public class SecurityConfig {
                             .requestMatchers(WHITELIST).permitAll()
                             .anyRequest().authenticated();
                 })
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .formLogin(form -> form.loginPage("/index.html").permitAll());
+                .httpBasic(AbstractHttpConfigurer::disable);
+//                .formLogin(form -> form.loginPage("/index.html").permitAll());
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -79,11 +78,10 @@ public class SecurityConfig {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 List<UmsAdmin> umsAdmins = umsAdminSqlAction.selectByUsername(username);
-                UmsAdmin admin = null;
-                if (!CollectionUtils.isEmpty(umsAdmins) && username.equals((admin = umsAdmins.get(0)).getUsername())) {
-                    return new AdminUserDetails(admin);
+                if (!CollectionUtils.isEmpty(umsAdmins)) {
+                    return new AdminUserDetails(umsAdmins.get(0));
                 }
-                throw new UsernameNotFoundException("用户名或密码错误");
+                throw new UsernameNotFoundException("用户名不存在");
             }
         };
     }

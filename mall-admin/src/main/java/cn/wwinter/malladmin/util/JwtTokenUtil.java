@@ -2,9 +2,8 @@ package cn.wwinter.malladmin.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,129 +11,42 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
-import java.util.Base64;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * JwtToken生成的工具类
- * JWT token的格式：header.payload.signature
- * header的格式（算法、token的类型）：
- * {"alg": "HS512","typ": "JWT"}
- * payload的格式（用户名、创建时间、生成时间）：
- * {"sub":"wang","created":1489079981393,"exp":1489684781}
- * signature的生成算法：
- * HMACSHA256(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
- */
 @Component
 public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
-    private static final String CLAIM_KEY_USERNAME = Claims.SUBJECT;
-    private static final String CLAIM_KEY_CREATED = "created";
-    private static final String CLAIM_KEY_EXPIRATION = Claims.EXPIRATION;
-    @Value("${jwt.secret}")
-    private String secret;
+
+    /**
+     * token过期时间
+     */
     @Value("${jwt.expiration}")
     private Long expiration;
 
+    @Value("${jwt.secret}")
+    private String secret;
     /**
-     * 根据claims和加密后的自定义secret生成JWT的token
+     * 使用更安全的随机密钥
      */
-    private String generateToken(Map<String, Object> claims) {
-        byte[] keyBytes = Base64.getEncoder().encode(secret.getBytes());
-        SecretKey key = Keys.hmacShaKeyFor(keyBytes);
-        return Jwts.builder()
-                .claims(claims)
-                .expiration(generateExpirationDate())
-                .signWith(key) // 登录密钥
-                .compact();
+    private SecretKey key = null;
+
+    @PostConstruct
+    public void init() {
+        key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
     /**
-     * 从token中获取JWT中的负载
-     */
-    private Claims getClaimsFromToken(String token) {
-        Claims claims = null;
-        byte[] bytes = Decoders.BASE64.decode(secret);
-        SecretKey key = Keys.hmacShaKeyFor(bytes);
-        try {
-            claims = Jwts.parser()
-                    .verifyWith(key)
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
-        } catch (Exception e) {
-            LOGGER.info("JWT格式验证失败:{}", token);
-        }
-        return claims;
-    }
-
-    /**
-     * 生成token的过期时间
-     */
-    private Date generateExpirationDate() {
-        return new Date(System.currentTimeMillis() + expiration * 1000);
-    }
-
-    /**
-     * 从token中获取登录用户名
-     */
-    public String getUserNameFromToken(String token) {
-        String username;
-        try {
-            Claims claims = getClaimsFromToken(token);
-            username = claims.getSubject();
-        } catch (Exception e) {
-            username = null;
-        }
-        return username;
-    }
-
-    /**
-     * 验证token是否还有效
-     *
-     * @param token       客户端传入的token
-     * @param userDetails 从数据库中查询出来的用户信息
-     */
-    public boolean validateToken(String token, UserDetails userDetails) {
-        String username = getUserNameFromToken(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
-    }
-
-    /**
-     * 判断token是否已经失效
-     */
-    private boolean isTokenExpired(String token) {
-        Date expiredDate = getExpiredDateFromToken(token);
-        return expiredDate.before(new Date());
-    }
-
-    /**
-     * 从token中获取过期时间
-     */
-    private Date getExpiredDateFromToken(String token) {
-        Claims claims = getClaimsFromToken(token);
-        return claims.getExpiration();
-    }
-
-    /**
-     * 根据用户信息生成token
+     * 生成token
      */
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
-//        claims.put(CLAIM_KEY_CREATED, new Date());
-        claims.put(CLAIM_KEY_EXPIRATION, generateExpirationDate());
+        claims.put(Claims.SUBJECT, userDetails.getUsername());
+        claims.put(Claims.ISSUED_AT, new Date());
+        claims.put(Claims.EXPIRATION, generateExpirationDate());
         return generateToken(claims);
-    }
-
-    /**
-     * 判断token是否可以被刷新
-     */
-    public boolean canRefresh(String token) {
-        return !isTokenExpired(token);
     }
 
     /**
@@ -142,8 +54,90 @@ public class JwtTokenUtil {
      */
     public String refreshToken(String token) {
         Claims claims = getClaimsFromToken(token);
-//        claims.put(CLAIM_KEY_CREATED, new Date());
-        claims.put(CLAIM_KEY_EXPIRATION, generateExpirationDate());
+        claims.put(Claims.EXPIRATION, generateExpirationDate());
         return generateToken(claims);
     }
+
+    /**
+     * 验证token是否有效
+     */
+    public boolean validateToken(String token, UserDetails userDetails) {
+        String username = getUserNameFromToken(token);
+        return username != null && constantTimeEquals(username, userDetails.getUsername()) && !isTokenExpired(token);
+    }
+
+    private String generateToken(Map<String, Object> claims) {
+        return Jwts.builder()
+                .claims(claims)
+                .signWith(key) // 使用随机密钥进行签名
+                .compact();
+    }
+
+    /**
+     * 获取token中的用户名
+     */
+    public String getUserNameFromToken(String token) {
+        Claims claims = getClaimsFromToken(token);
+        return claims.getSubject();
+    }
+
+    /**
+     * 获取token中的失效时间
+     */
+    private Date getExpiredDateFromToken(String token) {
+        Claims claims = getClaimsFromToken(token);
+        return claims.getExpiration();
+    }
+
+    /**
+     * 获取token中的登录时间
+     */
+    private Date getIssuedAtFromToken(String token) {
+        Claims claims = getClaimsFromToken(token);
+        return claims.getIssuedAt();
+    }
+
+    /**
+     * 获取token中的clams
+     */
+    private Claims getClaimsFromToken(String token) {
+        try {
+            return Jwts.parser()
+                    .verifyWith(key)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        } catch (Exception e) {
+            LOGGER.error("JWT格式验证失败: {}", token);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 判断token是否过期
+     */
+    private boolean isTokenExpired(String token) {
+        Date expiredDate = getExpiredDateFromToken(token);
+        return expiredDate.before(new Date());
+    }
+
+
+    /**
+     * 判断token中的用户名是否和数据库中用户名一致
+     * 使用常量时间比较,避免时序攻击（timing attack）
+     * 防止通过定时攻击猜测用户名
+     */
+    private boolean constantTimeEquals(String nameFromToken, String nameFromDB) {
+        return Arrays.equals(nameFromToken.getBytes(), nameFromDB.getBytes());
+    }
+
+
+    /**
+     * 生成过期时间
+     */
+    private Date generateExpirationDate() {
+        return new Date(System.currentTimeMillis() + expiration * 1000);
+    }
+
 }
+

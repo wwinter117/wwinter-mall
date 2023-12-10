@@ -4,6 +4,8 @@ spring:
   web:
     resources:
       static-locations: classpath:/webapp/
+server:
+  port: 8081
 
 # pagehelper
 pagehelper:
@@ -26,9 +28,9 @@ logging:
 
 jwt:
   tokenHeader: Authorization
-  secret: mySecret-diaushfoaiuydsgfha328947826&^%*^SUDHJVvygiashdf7q
-  expiration: 604800
   tokenHead: "Bearer "
+  expiration: 604800
+  secret: mySecret-iauysdgfb7yi8t7radsfafr43*&^$%gsadfg897qinwyehd87wegyuhd87wieguh
 
 
 mybatis:

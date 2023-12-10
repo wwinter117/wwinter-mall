@@ -45,10 +45,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith(this.tokenHead)) {
             String authToken = authHeader.substring(this.tokenHead.length());// The part after "Bearer "
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
-            LOGGER.info("checking username:{}", username);
+            LOGGER.debug("checking username:{}", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                    // 验证通过，构建一个 UsernamePasswordAuthenticationToken，表示认证成功的用户信息。
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     LOGGER.info("authenticated user:{}", username);
