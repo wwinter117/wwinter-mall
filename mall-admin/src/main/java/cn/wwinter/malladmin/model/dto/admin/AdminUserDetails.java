@@ -32,7 +32,6 @@ public class AdminUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 返回当前用户的权限
         return ROLE_TEST;
     }
 

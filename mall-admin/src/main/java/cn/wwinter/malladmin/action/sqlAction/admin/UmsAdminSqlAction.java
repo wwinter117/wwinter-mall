@@ -24,12 +24,14 @@ public class UmsAdminSqlAction implements CommonSqlAction<UmsAdmin> {
     private final UmsAdminMapper umsAdminMapper;
 
     public List<UmsAdmin> selectByUsername(String username) {
+        List<UmsAdmin> umsAdmins = Collections.emptyList();
         try {
-            return umsAdminMapper.selectByUsername(username);
+            umsAdmins =  umsAdminMapper.selectByUsername(username);
         } catch (Exception e) {
             log.error("根据用户名查找用户信息数据失败: {}", e.getMessage());
             throw new RuntimeException(e);
         }
+        return umsAdmins;
     }
 
 

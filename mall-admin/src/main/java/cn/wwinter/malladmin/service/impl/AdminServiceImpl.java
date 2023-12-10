@@ -56,22 +56,18 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public CommonResponse login(String username, String password) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-        String token = null;
         try {
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
             Authentication authenticate = authenticationManager.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authenticate);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            token = jwtTokenUtil.generateToken(userDetails);
+            String token = jwtTokenUtil.generateToken(userDetails);
+            LOGGER.info("用户: {} 登录成功！返回token: {}", username, token);
+            return CommonResponse.success(token);
         } catch (AuthenticationException e) {
-            LOGGER.warn("登录异常: {}", e.getMessage());
+            LOGGER.error("登录异常: {}", e.getMessage());
             throw new RuntimeException(e);
         }
-        if (token == null) {
-            return CommonResponse.authFailed();
-        }
-        LOGGER.info("用户: {} 登录成功！返回token: {}", username, token);
-        return CommonResponse.success(token);
     }
 
 }
