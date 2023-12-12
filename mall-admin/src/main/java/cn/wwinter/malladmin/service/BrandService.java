@@ -1,8 +1,7 @@
 package cn.wwinter.malladmin.service;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.dto.brand.PmsBrandDto;
-import cn.wwinter.malladmin.model.entity.brand.PmsBrand;
+import cn.wwinter.malladmin.model.dto.PmsBrandDto;
 
 import java.util.List;
 

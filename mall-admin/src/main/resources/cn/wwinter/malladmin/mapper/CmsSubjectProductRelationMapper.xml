@@ -4,7 +4,7 @@
 <mapper namespace="cn.wwinter.malladmin.mapper.CmsSubjectProductRelationMapper">
 
     <resultMap id="cmsSubjectProductRelationMapperResultMap"
-               type="cn.wwinter.malladmin.model.entity.product.CmsSubjectProductRelation">
+               type="cn.wwinter.malladmin.model.domain.CmsSubjectProductRelation">
         <id column="id" property="id"  jdbcType="BIGINT" javaType="Long"/>
         <result column="product_id" property="productId" jdbcType="BIGINT" javaType="Long"/>
         <result column="subject_id" property="subjectId" jdbcType="BIGINT" javaType="Long"/>

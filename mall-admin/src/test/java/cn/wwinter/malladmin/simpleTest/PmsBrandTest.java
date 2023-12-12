@@ -1,7 +1,7 @@
 package cn.wwinter.malladmin.simpleTest;
 
-import cn.wwinter.malladmin.action.sqlAction.brand.PmsBrandSqlAction;
-import cn.wwinter.malladmin.model.entity.brand.PmsBrand;
+import cn.wwinter.malladmin.service.action.sqlAction.brand.PmsBrandSqlAction;
+import cn.wwinter.malladmin.model.domain.PmsBrand;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

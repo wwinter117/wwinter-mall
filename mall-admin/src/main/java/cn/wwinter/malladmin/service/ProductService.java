@@ -7,7 +7,7 @@ package cn.wwinter.malladmin.service;/**
  */
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.dto.product.PmsProductCombinationDto;
+import cn.wwinter.malladmin.model.dto.PmsProductCombinationDto;
 
 /**
  * @Description:

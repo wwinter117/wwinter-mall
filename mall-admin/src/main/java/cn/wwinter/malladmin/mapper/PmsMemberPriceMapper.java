@@ -1,5 +1,5 @@
 package cn.wwinter.malladmin.mapper;
-import cn.wwinter.malladmin.model.entity.product.PmsMemberPrice;
+import cn.wwinter.malladmin.model.domain.PmsMemberPrice;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 

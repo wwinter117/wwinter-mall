@@ -1,6 +1,6 @@
 package cn.wwinter.malladmin.mapper;
 
-import cn.wwinter.malladmin.model.entity.product.PmsProductAttributeValue;
+import cn.wwinter.malladmin.model.domain.PmsProductAttributeValue;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 

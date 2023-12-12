@@ -1,6 +1,6 @@
 package cn.wwinter.malladmin.utils;
 
-import cn.wwinter.malladmin.model.entity.brand.PmsBrand;
+import cn.wwinter.malladmin.model.domain.PmsBrand;
 
 /**
  * @Description:

@@ -1,14 +1,12 @@
 package cn.wwinter.malladmin.service.impl;
 
-import cn.wwinter.malladmin.action.sqlAction.product.PmsMemberPriceSqlAction;
-import cn.wwinter.malladmin.action.sqlAction.product.PmsProductSqlAction;
-import cn.wwinter.malladmin.action.sqlAction.common.CommonSqlAction;
-import cn.wwinter.malladmin.action.sqlAction.product.*;
-import cn.wwinter.malladmin.assember.PmsProductAssembler;
+import cn.wwinter.malladmin.model.domain.PmsProduct;
+import cn.wwinter.malladmin.model.dto.*;
+import cn.wwinter.malladmin.service.action.sqlAction.product.*;
+import cn.wwinter.malladmin.service.action.sqlAction.common.CommonSqlAction;
+import cn.wwinter.malladmin.service.assember.PmsProductAssembler;
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.dto.product.*;
-import cn.wwinter.malladmin.model.entity.product.*;
-import cn.wwinter.malladmin.model.entity.product.common.CommonProductInfo;
+import cn.wwinter.malladmin.model.common.CommonProductInfo;
 import cn.wwinter.malladmin.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

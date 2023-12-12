@@ -1,6 +1,6 @@
 package cn.wwinter.malladmin.mapper;
 
-import cn.wwinter.malladmin.model.entity.product.PmsSkuStock;
+import cn.wwinter.malladmin.model.domain.PmsSkuStock;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 

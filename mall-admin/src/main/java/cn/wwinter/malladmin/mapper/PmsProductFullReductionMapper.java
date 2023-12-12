@@ -1,6 +1,6 @@
 package cn.wwinter.malladmin.mapper;
 
-import cn.wwinter.malladmin.model.entity.product.PmsProductFullReduction;
+import cn.wwinter.malladmin.model.domain.PmsProductFullReduction;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 

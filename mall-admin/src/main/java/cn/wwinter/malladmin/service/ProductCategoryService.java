@@ -1,10 +1,7 @@
 package cn.wwinter.malladmin.service;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.dto.product.PmsProductCategoryDto;
-import cn.wwinter.malladmin.model.entity.product.PmsProductCategory;
-
-import java.util.List;
+import cn.wwinter.malladmin.model.dto.PmsProductCategoryDto;
 
 /**
  * ClassName: ProductCategoryService

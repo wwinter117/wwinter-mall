@@ -1,8 +1,7 @@
 package cn.wwinter.malladmin.service;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.dto.admin.UmsAdminDto;
-import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
+import cn.wwinter.malladmin.model.dto.UmsAdminDto;
 
 /**
  * ClassName: AdminService

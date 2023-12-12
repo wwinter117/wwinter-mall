@@ -1,7 +1,7 @@
 package cn.wwinter.malladmin.controller;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.dto.brand.PmsBrandDto;
+import cn.wwinter.malladmin.model.dto.PmsBrandDto;
 import cn.wwinter.malladmin.service.BrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

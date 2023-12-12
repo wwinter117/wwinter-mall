@@ -2,8 +2,8 @@ package cn.wwinter.malladmin.simpleTest;
 
 import cn.wwinter.malladmin.mapper.PmsBrandMapper;
 import cn.wwinter.malladmin.mapper.UmsAdminMapper;
-import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
-import cn.wwinter.malladmin.model.entity.brand.PmsBrand;
+import cn.wwinter.malladmin.model.domain.UmsAdmin;
+import cn.wwinter.malladmin.model.domain.PmsBrand;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

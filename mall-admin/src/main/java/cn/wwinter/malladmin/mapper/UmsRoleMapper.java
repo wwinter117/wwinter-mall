@@ -1,11 +1,8 @@
 package cn.wwinter.malladmin.mapper;
 
-import cn.wwinter.malladmin.model.entity.UmsRole;
-import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
+import cn.wwinter.malladmin.model.domain.UmsRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * @Description:

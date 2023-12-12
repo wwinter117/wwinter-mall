@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.wwinter.malladmin.mapper.PmsMemberPriceMapper">
 
-    <resultMap id="pmsMemberPriceMap" type="cn.wwinter.malladmin.model.entity.product.PmsMemberPrice">
+    <resultMap id="pmsMemberPriceMap" type="cn.wwinter.malladmin.model.domain.PmsMemberPrice">
         <id column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
         <result column="product_id" property="productId" jdbcType="BIGINT" javaType="Long"/>
         <result column="member_level_id" property="memberLevelId" jdbcType="BIGINT" javaType="Long"/>

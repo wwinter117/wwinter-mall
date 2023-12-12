@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.wwinter.malladmin.mapper.PmsBrandMapper">
-    <resultMap id="pms_brand_resultMap" type="cn.wwinter.malladmin.model.entity.brand.PmsBrand">
+    <resultMap id="pms_brand_resultMap" type="cn.wwinter.malladmin.model.domain.PmsBrand">
         <id column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
         <result column="name" property="name" jdbcType="VARCHAR" javaType="string"/>
         <result column="first_letter" property="firstLetter" jdbcType="VARCHAR" javaType="string"/>
@@ -50,7 +50,7 @@
         </foreach>
     </insert>
 
-    <select id="selectByKeyword" resultType="cn.wwinter.malladmin.model.entity.brand.PmsBrand">
+    <select id="selectByKeyword" resultType="cn.wwinter.malladmin.model.domain.PmsBrand">
         SELECT <include refid="pms_brand_column"/> FROM pms_brand WHERE name = #{keyword}
     </select>
 

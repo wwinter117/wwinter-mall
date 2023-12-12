@@ -1,8 +1,8 @@
 package cn.wwinter.malladmin.controller;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.dto.admin.UmsAdminDto;
-import cn.wwinter.malladmin.model.dto.admin.AdminLoginDto;
+import cn.wwinter.malladmin.model.dto.UmsAdminDto;
+import cn.wwinter.malladmin.model.dto.AdminLoginDto;
 import cn.wwinter.malladmin.service.AdminService;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;

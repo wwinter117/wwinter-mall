@@ -1,6 +1,6 @@
 package cn.wwinter.malladmin.mapper;
 
-import cn.wwinter.malladmin.model.entity.product.CmsPreferenceAreaProductRelation;
+import cn.wwinter.malladmin.model.domain.CmsPreferenceAreaProductRelation;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 

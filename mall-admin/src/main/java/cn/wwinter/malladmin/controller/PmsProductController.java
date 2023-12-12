@@ -1,7 +1,7 @@
 package cn.wwinter.malladmin.controller;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.dto.product.PmsProductCombinationDto;
+import cn.wwinter.malladmin.model.dto.PmsProductCombinationDto;
 import cn.wwinter.malladmin.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.BindingResult;

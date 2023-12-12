@@ -1,10 +1,10 @@
 package cn.wwinter.malladmin.config;
 
-import cn.wwinter.malladmin.action.sqlAction.admin.UmsAdminSqlAction;
-import cn.wwinter.malladmin.enums.Roles;
+import cn.wwinter.malladmin.service.action.sqlAction.admin.UmsAdminSqlAction;
+import cn.wwinter.malladmin.model.enums.Roles;
 import cn.wwinter.malladmin.filter.JwtAuthenticationTokenFilter;
-import cn.wwinter.malladmin.model.dto.admin.AdminUserDetails;
-import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
+import cn.wwinter.malladmin.model.dto.AdminUserDetails;
+import cn.wwinter.malladmin.model.domain.UmsAdmin;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
