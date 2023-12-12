@@ -3,7 +3,6 @@ package cn.wwinter.malladmin.model.entity.admin;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 import java.io.Serial;
@@ -19,7 +18,7 @@ import java.io.Serializable;
 public class UmsAdmin implements Serializable {
     @Serial
     private static final long serialVersionUID = 1315608205073359771L;
-    @TableId(type = IdType.INPUT)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     private String username;

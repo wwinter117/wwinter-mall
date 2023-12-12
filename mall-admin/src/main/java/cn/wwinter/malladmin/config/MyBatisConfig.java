@@ -29,30 +29,4 @@ public class MyBatisConfig {
         pageHelper.setProperties(properties);
         return pageHelper;
     }
-
-//    @Bean
-//    public IKeyGenerator keyGenerator() {
-//        return new H2KeyGenerator();
-//    }
-
-    @Bean
-    public IdentifierGenerator idGenerator() {
-        return new CustomIdGenerator();
-    }
-
-    /**
-     * 主键生成器
-     */
-    private static class CustomIdGenerator implements IdentifierGenerator {
-        @Override
-        public Long nextId(Object entity) {
-            //可以将当前传入的class全类名来作为bizKey,或者提取参数来生成bizKey进行分布式Id调用生成.
-            String bizKey = entity.getClass().getName();
-            log.info("bizKey: {}", bizKey);
-            SnowFlakeUtils snowFlakeUtils = new SnowFlakeUtils(2, 3);
-            long id = snowFlakeUtils.nextId();
-            log.info("为{}生成主键->{}", bizKey, id);
-            return id;
-        }
-    }
 }

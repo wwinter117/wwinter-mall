@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import lombok.Data;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.List;
+
 /**
  * ClassName: UmsAdminDto
  * Package: cn.wwinter.malladmin.model.dto
@@ -25,4 +27,6 @@ public class UmsAdminDto {
     @ApiModelProperty(value = "邮箱")
     @Email(message = "邮箱格式不合法")
     private String email;
+
+    private List<String> roles;
 }

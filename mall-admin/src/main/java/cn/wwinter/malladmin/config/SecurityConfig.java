@@ -1,6 +1,7 @@
 package cn.wwinter.malladmin.config;
 
 import cn.wwinter.malladmin.action.sqlAction.admin.UmsAdminSqlAction;
+import cn.wwinter.malladmin.enums.Roles;
 import cn.wwinter.malladmin.filter.JwtAuthenticationTokenFilter;
 import cn.wwinter.malladmin.model.dto.admin.AdminUserDetails;
 import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
@@ -61,6 +62,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> {
                     authorize
                             .requestMatchers(WHITELIST).permitAll()
+                            .requestMatchers("/brand/listAll").hasRole(Roles.ADMIN.getValue())
+                            .requestMatchers("/brand/list").hasRole(Roles.USER.getValue())
                             .anyRequest().authenticated();
                 })
                 .httpBasic(AbstractHttpConfigurer::disable);
@@ -79,7 +82,9 @@ public class SecurityConfig {
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 List<UmsAdmin> umsAdmins = umsAdminSqlAction.selectByUsername(username);
                 if (!CollectionUtils.isEmpty(umsAdmins)) {
-                    return new AdminUserDetails(umsAdmins.get(0));
+                    UmsAdmin umsAdmin = umsAdmins.get(0);
+                    List<String> roles = umsAdminSqlAction.selectUmsAdminRole(umsAdmin.getId());
+                    return new AdminUserDetails(umsAdmin, roles);
                 }
                 throw new UsernameNotFoundException("用户名不存在");
             }
@@ -87,7 +92,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

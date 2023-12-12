@@ -4,6 +4,7 @@ import cn.wwinter.malladmin.action.sqlAction.admin.UmsAdminSqlAction;
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.admin.UmsAdminDto;
 import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
+import cn.wwinter.malladmin.model.entity.admin.UmsAdminRole;
 import cn.wwinter.malladmin.service.AdminService;
 import cn.wwinter.malladmin.util.JwtTokenUtil;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,9 +50,22 @@ public class AdminServiceImpl implements AdminService {
         }
         UmsAdmin umsAdmin = new UmsAdmin();
         BeanUtils.copyProperties(adminDto, umsAdmin);
+        // 加密存储，加盐
         String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
         umsAdmin.setPassword(encodePassword);
         umsAdminSqlAction.insertIterm(umsAdmin);
+
+        // 插入用户角色关联信息表
+        List<UmsAdminRole> umsAdminRoleList = new ArrayList<>();
+        List<String> roles = adminDto.getRoles();
+        for (String role : roles) {
+            UmsAdminRole umsAdminRole = new UmsAdminRole();
+            umsAdminRole.setUmsAdminId(umsAdmin.getId());
+            umsAdminRole.setUmsRoleId(umsAdminSqlAction.selectByRoleName(role).getId());
+            umsAdminRoleList.add(umsAdminRole);
+        }
+        umsAdminSqlAction.insertRoleList(umsAdminRoleList);
+
         return CommonResponse.success("");
     }
 

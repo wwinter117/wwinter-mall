@@ -2,13 +2,18 @@ package cn.wwinter.malladmin.action.sqlAction.admin;
 
 import cn.wwinter.malladmin.action.sqlAction.common.CommonSqlAction;
 import cn.wwinter.malladmin.mapper.UmsAdminMapper;
+import cn.wwinter.malladmin.mapper.UmsAdminRoleMapper;
+import cn.wwinter.malladmin.mapper.UmsRoleMapper;
+import cn.wwinter.malladmin.model.entity.UmsRole;
 import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
+import cn.wwinter.malladmin.model.entity.admin.UmsAdminRole;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +27,11 @@ import java.util.List;
 public class UmsAdminSqlAction implements CommonSqlAction<UmsAdmin> {
 
     private final UmsAdminMapper umsAdminMapper;
+
+    private final UmsAdminRoleMapper umsAdminRoleMapper;
+
+    private final UmsRoleMapper umsRoleMapper;
+
 
     public List<UmsAdmin> selectByUsername(String username) {
         List<UmsAdmin> umsAdmins = Collections.emptyList();
@@ -117,4 +127,21 @@ public class UmsAdminSqlAction implements CommonSqlAction<UmsAdmin> {
             throw new RuntimeException(e);
         }
     }
+
+    public List<String> selectUmsAdminRole(Long id) {
+        return umsAdminMapper.selectUmsAdminRole(id);
+    }
+
+    public int insertRoleList(List<UmsAdminRole> umsAdminRoles) {
+        return umsAdminRoleMapper.insertList(umsAdminRoles);
+    }
+
+    public int insertUmsAdminRoleList(List<UmsAdminRole> umsAdminRoles) {
+        return umsAdminRoleMapper.insertList(umsAdminRoles);
+    }
+
+    public UmsRole selectByRoleName(String role) {
+        return umsRoleMapper.selectByRoleName(role);
+    }
+
 }

@@ -1,5 +1,6 @@
 package cn.wwinter.malladmin.mapper;
 
+import cn.wwinter.malladmin.model.entity.UmsRole;
 import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,11 +13,7 @@ import java.util.List;
  * @Author: zhangdd
  */
 @Mapper
-public interface UmsAdminMapper extends CommonMapper<UmsAdmin> {
-    List<UmsAdmin> selectByUsername(@Param("username") String username);
+public interface UmsRoleMapper extends CommonMapper<UmsRole> {
 
-    @Override
-    int insertList(@Param("list") List<UmsAdmin> list);
-
-    List<String> selectUmsAdminRole(@Param("id") Long id);
+    UmsRole selectByRoleName(@Param("roleName") String role);
 }

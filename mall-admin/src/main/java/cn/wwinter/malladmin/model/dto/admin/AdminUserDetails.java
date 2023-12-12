@@ -1,13 +1,14 @@
 package cn.wwinter.malladmin.model.dto.admin;
 
 import cn.wwinter.malladmin.model.entity.admin.UmsAdmin;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 /**
  * ClassName: AdminUserDetails
@@ -16,6 +17,7 @@ import java.util.Collections;
  * Datetime: 2023/11/26
  * Author: zhangdd
  */
+@AllArgsConstructor
 public class AdminUserDetails implements UserDetails {
 
     @Serial
@@ -23,18 +25,12 @@ public class AdminUserDetails implements UserDetails {
 
     private final UmsAdmin umsAdmin;
 
-    private static final Collection<GrantedAuthority> ROLE_TEST =
-            Collections.unmodifiableList(AuthorityUtils.createAuthorityList("TEST"));
-
-    public AdminUserDetails(UmsAdmin umsAdmin) {
-        this.umsAdmin = umsAdmin;
-    }
+    private final List<String> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return ROLE_TEST;
+        return AuthorityUtils.createAuthorityList(roles);
     }
-
 
     @Override
     public String getPassword() {
