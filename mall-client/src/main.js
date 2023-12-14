@@ -1,20 +1,15 @@
-import { createApp } from 'vue'
-import App from './components/Index.vue'
-import { createRouter, createWebHistory } from 'vue-router';
-import Login from './components/Login.vue';
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
+import 'normalize.css/normalize.css'
+import ElementUI from 'element-ui';
 
-const routes = [
-    // 其他路由...
-    {
-        path: '/login',
-        name: 'Login',
-        component: Login
-    }
-];
+Vue.config.productionTip = false;
 
-const router = createRouter({
-    history: createWebHistory(),
-    routes
-});
-const app = createApp(App);
-app.use(router).mount('#app')
+new Vue({
+  router,
+  store,
+  ElementUI,
+  render: (h) => h(App),
+}).$mount("#app");

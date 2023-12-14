@@ -1,105 +1,107 @@
 <template>
-  <!-- 页头 -->
-  <header id="pageHeader">
-    <div class="logo">
-      <img src="../images/jay.jpeg" alt="Logo">
-      <span class="brandName">Jay-Web</span>
-    </div>
-
-    <div class="searchBox">
-      <label>
-        <input type="text" placeholder="查找(⌘+K)"/>
-      </label>
-    </div>
-
-    <div class="userSection">
-      <div class="notice">
-        <img src="../images/notice_通知.svg" alt="notice">
-        <span class="notice-info">1</span>
+  <div>
+    <!-- 页头 -->
+    <header id="pageHeader">
+      <div class="logo">
+        <img src="../../static/jay.jpeg" alt="Logo">
+        <span class="brandName">Jay-Web</span>
       </div>
-      <div class="userProfile" @click="goToLogin()">
-        <img src="../images/user2.svg" alt="User Avatar">
-        <span class="username">Wwinter117</span>
+
+      <div class="searchBox">
+        <label>
+          <input type="text" placeholder="查找(⌘+K)"/>
+        </label>
       </div>
-      <div class="logoutProfile">
-        <img src="../images/注销-white.svg" alt="User Avatar">
-        <a href="/login" class="userLogout">注销</a>
+
+      <div class="userSection">
+        <div class="notice">
+          <img src="../../static/notice_通知.svg" alt="notice">
+          <span class="notice-info">1</span>
+        </div>
+        <div class="userProfile" @click="goToLogin()">
+          <img src="../../static/user2.svg" alt="User Avatar">
+          <span class="username">Wwinter117</span>
+        </div>
+        <div class="logoutProfile">
+          <img src="../../static/注销-white.svg" alt="User Avatar">
+          <a href="/login" class="userLogout">注销</a>
+        </div>
+      </div>
+    </header>
+
+    <!--  Dashboard  -->
+    <div class="dashboard_div_0" id="breadcrumb">
+      <div class="dashboard_div">
+        <ol class="list-item-class" id="list-item">
+          <li class="dashboard-item">
+            <a href="/login" class="dashboard-a" id="dashboard-a">
+              Dashboard
+            </a>
+            <img src="../../static/edit.svg" alt="edit">
+          </li>
+        </ol>
+        <ol class="menu-item-class" id="menu-items">
+        </ol>
       </div>
     </div>
-  </header>
 
-  <!--  Dashboard  -->
-  <div class="dashboard_div_0" id="breadcrumb">
-    <div class="dashboard_div">
-      <ol class="list-item-class" id="list-item">
-        <li class="dashboard-item">
-          <a href="/login" class="dashboard-a" id="dashboard-a">
-            Dashboard
-          </a>
-          <img src="../images/edit.svg" alt="edit">
-        </li>
-      </ol>
-      <ol class="menu-item-class" id="menu-items">
-      </ol>
-    </div>
-  </div>
-
-  <div class="content_div">
-    <div class="side-panel">
-      <div id="tasks">
-        <div class="task" @click="updateMenuItems('商品')">
+    <div class="content_div">
+      <div class="side-panel">
+        <div id="tasks">
+          <div class="task" @click="updateMenuItems('商品')">
                 <span class="task-link-wrapper">
                         <a class="task-link">
-                            <img src="../images/product.svg" alt="product"/>
+                            <img src="../../static/product.svg" alt="product"/>
                             <span class="task-link-text">商品</span>
                         </a>
                 </span>
-        </div>
-        <div class="task" @click="updateMenuItems('库存')">
+          </div>
+          <div class="task" @click="updateMenuItems('库存')">
                 <span class="task-link-wrapper">
                     <a class="task-link">
-                        <img src="../images/sku.svg" alt="sku"/>
+                        <img src="../../static/sku.svg" alt="sku"/>
                         <span class="task-link-text">库存</span>
                     </a>
                 </span>
-        </div>
-        <div class="task" @click="updateMenuItems('用户')">
+          </div>
+          <div class="task" @click="updateMenuItems('用户')">
                 <span class="task-link-wrapper">
                     <a class="task-link">
-                        <img src="../images/user.svg" alt="user">
+                        <img src="../../static/user.svg" alt="user">
                         <span class="task-link-text">用户</span>
                     </a>
                 </span>
-        </div>
-        <div class="task" @click="updateMenuItems('设置')">
+          </div>
+          <div class="task" @click="updateMenuItems('设置')">
                 <span class="task-link-wrapper">
                     <a class="task-link">
-                        <img src="../images/setting.svg" alt="setting">
+                        <img src="../../static/setting.svg" alt="setting">
                         <span class="task-link-text">设置</span>
                     </a>
                 </span>
+          </div>
+        </div>
+        <div id="message">
+
+        </div>
+        <div id="setting">
+
         </div>
       </div>
-      <div id="message">
-
-      </div>
-      <div id="setting">
-
-      </div>
-    </div>
-    <div class="main-panel">
-      <div class="main-panel-first-line">
-        <div class="first-line-left">
-          first-line-left
+      <div class="main-panel">
+        <div class="main-panel-first-line">
+          <div class="first-line-left">
+            first-line-left
+          </div>
+          <div class="first-line-right">
+            first-line-right
+          </div>
         </div>
-        <div class="first-line-right">
-          first-line-right
-        </div>
-      </div>
 
-      <div class="main-panel-second-line">
-        <div class="second-line-mid">
-          second-line-mid
+        <div class="main-panel-second-line">
+          <div class="second-line-mid">
+            second-line-mid
+          </div>
         </div>
       </div>
     </div>
