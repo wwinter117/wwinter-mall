@@ -1,6 +1,6 @@
 package cn.wwinter.malladmin.anno;
 
-import cn.wwinter.malladmin.aspect.validator.FlagValidatorClass;
+import cn.wwinter.malladmin.component.validator.FlagValidatorClass;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

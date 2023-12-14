@@ -6,13 +6,13 @@ import cn.wwinter.malladmin.model.dto.PmsBrandDto;
 import java.util.List;
 
 /**
- * ClassName: BrandService
+ * ClassName: PmsBrandService
  * Package: cn.wwinter.malldemo.service
  * Description:
  * Datetime: 2023/11/27
  * Author: zhangdd
  */
-public interface BrandService {
+public interface PmsBrandService {
 
     CommonResponse getItem(Long id);
 

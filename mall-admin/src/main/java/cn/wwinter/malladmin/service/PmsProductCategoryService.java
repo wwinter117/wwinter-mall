@@ -4,13 +4,13 @@ import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.PmsProductCategoryDto;
 
 /**
- * ClassName: ProductCategoryService
+ * ClassName: PmsProductCategoryService
  * Package: cnn.wwinter.malladmin.service
  * Description:
  * Datetime: 2023/11/28
  * Author: zhangdd
  */
-public interface ProductCategoryService {
+public interface PmsProductCategoryService {
     CommonResponse create(PmsProductCategoryDto pmsProductCategoryDto);
 
     CommonResponse update(Long id, PmsProductCategoryDto pmsProductCategoryDto);

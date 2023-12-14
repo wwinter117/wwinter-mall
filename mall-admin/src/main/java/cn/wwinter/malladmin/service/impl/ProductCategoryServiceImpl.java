@@ -4,7 +4,7 @@ import cn.wwinter.malladmin.service.action.sqlAction.product.PmsProductCategoryS
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.PmsProductCategoryDto;
 import cn.wwinter.malladmin.model.domain.PmsProductCategory;
-import cn.wwinter.malladmin.service.ProductCategoryService;
+import cn.wwinter.malladmin.service.PmsProductCategoryService;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class ProductCategoryServiceImpl implements ProductCategoryService {
+public class ProductCategoryServiceImpl implements PmsProductCategoryService {
 
     private final PmsProductCategorySqlAction pmsProductCategorySqlAction;
 

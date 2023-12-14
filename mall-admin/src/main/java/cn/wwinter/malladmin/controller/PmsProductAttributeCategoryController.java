@@ -1,7 +1,7 @@
 package cn.wwinter.malladmin.controller;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.service.ProductAttributeCategoryService;
+import cn.wwinter.malladmin.service.PmsProductAttributeCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -24,18 +24,18 @@ public class PmsProductAttributeCategoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PmsProductAttributeCategoryController.class);
 
-    private final ProductAttributeCategoryService productAttributeCategoryService;
+    private final PmsProductAttributeCategoryService pmsProductAttributeCategoryService;
 
     @ApiOperation("添加商品属性分类")
     @PostMapping("/create")
     public CommonResponse create(String name) {
-        return productAttributeCategoryService.create(name);
+        return pmsProductAttributeCategoryService.create(name);
     }
 
     @ApiOperation("分页获取所有商品属性分类")
     @GetMapping("/list")
     public CommonResponse getList(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize) {
-        return productAttributeCategoryService.getList(pageNum, pageSize);
+        return pmsProductAttributeCategoryService.getList(pageNum, pageSize);
     }
 
 

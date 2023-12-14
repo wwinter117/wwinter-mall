@@ -2,7 +2,7 @@ package cn.wwinter.malladmin.controller;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.PmsProductCombinationDto;
-import cn.wwinter.malladmin.service.ProductService;
+import cn.wwinter.malladmin.service.PmsProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("product")
 @AllArgsConstructor
 public class PmsProductController {
-    private final ProductService productService;
+    private final PmsProductService pmsProductService;
 
     @PostMapping("create")
     public CommonResponse create(@Validated @RequestBody PmsProductCombinationDto pmsProductCombinationDto, BindingResult bindingResult) {
-        return productService.create(pmsProductCombinationDto);
+        return pmsProductService.create(pmsProductCombinationDto);
     }
 }

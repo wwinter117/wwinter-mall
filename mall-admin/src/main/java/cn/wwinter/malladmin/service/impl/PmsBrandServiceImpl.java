@@ -1,10 +1,10 @@
 package cn.wwinter.malladmin.service.impl;
 
+import cn.wwinter.malladmin.service.PmsBrandService;
 import cn.wwinter.malladmin.service.action.sqlAction.brand.PmsBrandSqlAction;
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.PmsBrandDto;
 import cn.wwinter.malladmin.model.domain.PmsBrand;
-import cn.wwinter.malladmin.service.BrandService;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 /**
- * ClassName: BrandServiceImpl
+ * ClassName: PmsBrandServiceImpl
  * Package: cn.wwinter.malldemo.service.impl
  * Description:
  * Datetime: 2023/11/27
@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class BrandServiceImpl implements BrandService {
+public class PmsBrandServiceImpl implements PmsBrandService {
 
     private final PmsBrandSqlAction pmsBrandSqlAction;
 

@@ -1,4 +1,4 @@
-package cn.wwinter.malladmin.aspect;
+package cn.wwinter.malladmin.component;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import org.aspectj.lang.ProceedingJoinPoint;

@@ -58,6 +58,19 @@ public class CommonResponse {
     public static CommonResponse authFailed() {
         return new CommonResponse(HttpStatus.UNAUTHORIZED.value(),  "用户名或密码错误", null);
     }
+    /**
+     * 认证失败
+     */
+    public static CommonResponse authFailed(String message) {
+        return new CommonResponse(HttpStatus.UNAUTHORIZED.value(),  message, null);
+    }
+
+    /**
+     * 没有权限，禁止访问
+     */
+    public static CommonResponse forbidden(String message) {
+        return new CommonResponse(HttpStatus.FORBIDDEN.value(),  message, null);
+    }
 
 //    public static <T> ResponseEntity<T> authFailed(T responseBody) {
 //        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);

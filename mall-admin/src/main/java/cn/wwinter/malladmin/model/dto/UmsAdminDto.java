@@ -27,6 +27,6 @@ public class UmsAdminDto {
     @ApiModelProperty(value = "邮箱")
     @Email(message = "邮箱格式不合法")
     private String email;
-
+    @NotEmpty(message = "角色不能为空")
     private List<String> roles;
 }

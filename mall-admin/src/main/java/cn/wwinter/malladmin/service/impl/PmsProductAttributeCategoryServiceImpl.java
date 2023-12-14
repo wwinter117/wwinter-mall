@@ -1,16 +1,16 @@
 package cn.wwinter.malladmin.service.impl;
 
+import cn.wwinter.malladmin.service.PmsProductAttributeCategoryService;
 import cn.wwinter.malladmin.service.action.sqlAction.product.PmsProductAttributeCategorySqlAction;
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.domain.PmsProductAttributeCategory;
-import cn.wwinter.malladmin.service.ProductAttributeCategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * ClassName: ProductAttributeCategoryServiceImpl
+ * ClassName: PmsProductAttributeCategoryServiceImpl
  * Package: cnn.wwinter.malladmin.service.impl
  * Description:
  * Datetime: 2023/11/29
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class ProductAttributeCategoryServiceImpl implements ProductAttributeCategoryService {
+public class PmsProductAttributeCategoryServiceImpl implements PmsProductAttributeCategoryService {
     private final PmsProductAttributeCategorySqlAction pmsProductAttributeCategorySqlAction;
 
     @Override

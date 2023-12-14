@@ -5,7 +5,7 @@ import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.UmsAdminDto;
 import cn.wwinter.malladmin.model.domain.UmsAdmin;
 import cn.wwinter.malladmin.model.domain.UmsAdminRole;
-import cn.wwinter.malladmin.service.AdminService;
+import cn.wwinter.malladmin.service.UmsAdminService;
 import cn.wwinter.malladmin.util.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ClassName: AdminServiceImpl
+ * ClassName: UmsAdminServiceImpl
  * Package: cn.wwinter.malladmin.service.impl
  * Description:
  * Datetime: 2023/12/1
@@ -34,13 +34,13 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class AdminServiceImpl implements AdminService {
+public class UmsAdminServiceImpl implements UmsAdminService {
     private final UmsAdminSqlAction umsAdminSqlAction;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UmsAdminServiceImpl.class);
 
     @Override
     public CommonResponse register(UmsAdminDto adminDto) {
@@ -72,7 +72,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public CommonResponse login(String username, String password) {
         try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
             Authentication authenticate = authenticationManager.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authenticate);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);

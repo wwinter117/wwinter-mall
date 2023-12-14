@@ -132,16 +132,33 @@ public class UmsAdminSqlAction implements CommonSqlAction<UmsAdmin> {
         return umsAdminMapper.selectUmsAdminRole(id);
     }
 
+
     public int insertRoleList(List<UmsAdminRole> umsAdminRoles) {
-        return umsAdminRoleMapper.insertList(umsAdminRoles);
+        try {
+            return umsAdminRoleMapper.insertList(umsAdminRoles);
+        } catch (Exception e) {
+            log.error("角色信息插入失败: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
+
     }
 
     public int insertUmsAdminRoleList(List<UmsAdminRole> umsAdminRoles) {
-        return umsAdminRoleMapper.insertList(umsAdminRoles);
+        try {
+            return umsAdminRoleMapper.insertList(umsAdminRoles);
+        } catch (Exception e) {
+            log.error("用户角色关联信息插入失败: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     public UmsRole selectByRoleName(String role) {
-        return umsRoleMapper.selectByRoleName(role);
+        try {
+            return umsRoleMapper.selectByRoleName(role);
+        } catch (Exception e) {
+            log.error("查询用户角色失败: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
 }

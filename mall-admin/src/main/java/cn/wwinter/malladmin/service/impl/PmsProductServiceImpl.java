@@ -2,12 +2,12 @@ package cn.wwinter.malladmin.service.impl;
 
 import cn.wwinter.malladmin.model.domain.PmsProduct;
 import cn.wwinter.malladmin.model.dto.*;
+import cn.wwinter.malladmin.service.PmsProductService;
 import cn.wwinter.malladmin.service.action.sqlAction.product.*;
 import cn.wwinter.malladmin.service.action.sqlAction.common.CommonSqlAction;
 import cn.wwinter.malladmin.service.assember.PmsProductAssembler;
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.common.CommonProductInfo;
-import cn.wwinter.malladmin.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ import java.util.function.Function;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class ProductServiceImpl implements ProductService {
+public class PmsProductServiceImpl implements PmsProductService {
 
     /**
      * 商品bean转换

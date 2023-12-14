@@ -1,5 +1,5 @@
 package cn.wwinter.malladmin.service;/**
- * ClassName: ProductService
+ * ClassName: PmsProductService
  * Package: cn.wwinter.malladmin.service
  * Description:
  * Datetime: 2023/12/2
@@ -14,6 +14,6 @@ import cn.wwinter.malladmin.model.dto.PmsProductCombinationDto;
  * @Datetime: 2023/12/2
  * @Author: zhangdd
  */
-public interface ProductService {
+public interface PmsProductService {
     CommonResponse create(PmsProductCombinationDto pmsProductCombinationDto);
 }
