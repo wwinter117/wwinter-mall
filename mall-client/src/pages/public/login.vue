@@ -47,7 +47,7 @@ export default {
     },
 
     showRegisterForm() {
-      this.$router.push("register");
+      this.$router.push("Register");
     },
 
     // 添加 handleKeyPress 函数

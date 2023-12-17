@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mall
+    username: root
+    password: root
+
+elasticsearch:
+  server:
+    url: localhost:9200
+    username: elastic
+    password: '*mGniXn_IgG4V6NV6*oT'
+    crtType: X.509

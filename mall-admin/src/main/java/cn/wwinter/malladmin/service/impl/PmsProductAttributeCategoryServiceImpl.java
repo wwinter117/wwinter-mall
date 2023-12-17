@@ -1,9 +1,9 @@
 package cn.wwinter.malladmin.service.impl;
 
 import cn.wwinter.malladmin.service.PmsProductAttributeCategoryService;
-import cn.wwinter.malladmin.service.action.sqlAction.product.PmsProductAttributeCategorySqlAction;
+import cn.wwinter.malladmin.service.action.sqlAction.PmsProductAttributeCategorySqlAction;
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.domain.PmsProductAttributeCategory;
+import cn.wwinter.entity.PmsProductAttributeCategory;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

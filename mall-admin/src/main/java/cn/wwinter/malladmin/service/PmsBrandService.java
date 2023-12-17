@@ -2,6 +2,7 @@ package cn.wwinter.malladmin.service;
 
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.PmsBrandDto;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public interface PmsBrandService {
 
     CommonResponse create(PmsBrandDto pmsBrandDto);
 
+    @Transactional
     CommonResponse update(Long id, PmsBrandDto pmsBrandDto);
 
     CommonResponse updateShowStatusBatch(List<Long> ids, Integer showStatus);

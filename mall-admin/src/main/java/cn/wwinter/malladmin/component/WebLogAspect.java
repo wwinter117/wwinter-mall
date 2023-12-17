@@ -1,6 +1,6 @@
 package cn.wwinter.malladmin.component;
 
-import cn.wwinter.malladmin.model.domain.WebLog;
+import cn.wwinter.entity.WebLog;
 import cn.wwinter.malladmin.util.JsonUtils;
 import cn.wwinter.malladmin.util.RequestUtils;
 import io.swagger.annotations.ApiOperation;

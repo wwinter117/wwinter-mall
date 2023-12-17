@@ -1,9 +1,9 @@
 package cn.wwinter.malladmin.service.impl;
 
-import cn.wwinter.malladmin.service.action.sqlAction.product.PmsProductCategorySqlAction;
+import cn.wwinter.malladmin.service.action.sqlAction.PmsProductCategorySqlAction;
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.PmsProductCategoryDto;
-import cn.wwinter.malladmin.model.domain.PmsProductCategory;
+import cn.wwinter.entity.PmsProductCategory;
 import cn.wwinter.malladmin.service.PmsProductCategoryService;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;

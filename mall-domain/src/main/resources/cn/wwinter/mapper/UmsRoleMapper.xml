@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.wwinter.mapper.UmsRoleMapper">
+
+    <resultMap id="ums_role_resultMap" type="cn.wwinter.entity.UmsRole">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR" javaType="string"/>
+        <result column="description" property="description" jdbcType="VARCHAR" javaType="string"/>
+    </resultMap>
+
+    <sql id="ums_role_column">
+        id,
+        role_name,
+        description
+    </sql>
+
+    <select id="selectByRoleName" resultType="cn.wwinter.entity.UmsRole"
+            parameterType="java.lang.String">
+        select <include refid="ums_role_column"/> from ums_role WHERE
+        role_name = #{roleName}
+    </select>
+
+
+</mapper>

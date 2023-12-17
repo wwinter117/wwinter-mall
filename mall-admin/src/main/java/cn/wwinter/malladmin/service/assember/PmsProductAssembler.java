@@ -1,7 +1,7 @@
 package cn.wwinter.malladmin.service.assember;
 
 import cn.wwinter.malladmin.model.dto.*;
-import cn.wwinter.malladmin.model.domain.*;
+import cn.wwinter.entity.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

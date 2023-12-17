@@ -1,10 +1,10 @@
 package cn.wwinter.malladmin.service.impl;
 
-import cn.wwinter.malladmin.service.action.sqlAction.admin.UmsAdminSqlAction;
+import cn.wwinter.malladmin.service.action.sqlAction.UmsAdminSqlAction;
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.UmsAdminDto;
-import cn.wwinter.malladmin.model.domain.UmsAdmin;
-import cn.wwinter.malladmin.model.domain.UmsAdminRole;
+import cn.wwinter.entity.UmsAdmin;
+import cn.wwinter.entity.UmsAdminRole;
 import cn.wwinter.malladmin.service.UmsAdminService;
 import cn.wwinter.malladmin.util.JwtTokenUtil;
 import lombok.AllArgsConstructor;

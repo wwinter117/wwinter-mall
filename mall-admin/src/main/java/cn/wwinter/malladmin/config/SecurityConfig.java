@@ -2,11 +2,11 @@ package cn.wwinter.malladmin.config;
 
 import cn.wwinter.malladmin.component.RestAuthenticationEntryPoint;
 import cn.wwinter.malladmin.component.RestfulAccessDeniedHandler;
-import cn.wwinter.malladmin.service.action.sqlAction.admin.UmsAdminSqlAction;
+import cn.wwinter.malladmin.service.action.sqlAction.UmsAdminSqlAction;
 import cn.wwinter.malladmin.model.enums.Roles;
 import cn.wwinter.malladmin.filter.JwtAuthenticationTokenFilter;
 import cn.wwinter.malladmin.model.dto.AdminUserDetails;
-import cn.wwinter.malladmin.model.domain.UmsAdmin;
+import cn.wwinter.entity.UmsAdmin;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

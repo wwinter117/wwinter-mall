@@ -1,10 +1,12 @@
 package cn.wwinter.malladmin.service.impl;
 
+import cn.wwinter.entity.PmsProduct;
 import cn.wwinter.malladmin.service.PmsBrandService;
-import cn.wwinter.malladmin.service.action.sqlAction.brand.PmsBrandSqlAction;
+import cn.wwinter.malladmin.service.action.sqlAction.PmsBrandSqlAction;
 import cn.wwinter.malladmin.model.common.CommonResponse;
 import cn.wwinter.malladmin.model.dto.PmsBrandDto;
-import cn.wwinter.malladmin.model.domain.PmsBrand;
+import cn.wwinter.entity.PmsBrand;
+import cn.wwinter.malladmin.service.action.sqlAction.PmsProductSqlAction;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,9 @@ import java.util.List;
 public class PmsBrandServiceImpl implements PmsBrandService {
 
     private final PmsBrandSqlAction pmsBrandSqlAction;
+
+    private final PmsProductSqlAction pmsProductSqlAction;
+
 
     @Override
     public CommonResponse getItem(Long id) {
@@ -66,6 +71,11 @@ public class PmsBrandServiceImpl implements PmsBrandService {
             pmsBrand.setFirstLetter(pmsBrandDto.getName().substring(0, 1));
         }
         pmsBrandSqlAction.updateIterm(pmsBrand);
+
+        PmsProduct pmsProduct = new PmsProduct();
+        pmsProduct.setBrandId(id);
+        pmsProduct.setBrandName(pmsBrandDto.getName());
+        pmsProductSqlAction.updateIterm(pmsProduct);
         return CommonResponse.success(pmsBrand);
     }
 

@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "elasticsearch.server.url",
+      "type": "java.lang.String",
+      "description": "Description for elasticsearch.server.url."
+    },
+    {
+      "name": "elasticsearch.server.username",
+      "type": "java.lang.String",
+      "description": "Description for elasticsearch.server.username."
+    },
+    {
+      "name": "elasticsearch.server.password",
+      "type": "java.lang.String",
+      "description": "Description for elasticsearch.server.password."
+    },
+    {
+      "name": "elasticsearch.server.crtType",
+      "type": "java.lang.String",
+      "description": "Description for elasticsearch.server.crtType."
+    }
+  ] }

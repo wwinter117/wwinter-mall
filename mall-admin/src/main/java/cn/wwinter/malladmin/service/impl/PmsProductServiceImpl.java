@@ -1,13 +1,12 @@
 package cn.wwinter.malladmin.service.impl;
 
-import cn.wwinter.malladmin.model.domain.PmsProduct;
+import cn.wwinter.common.CommonProductInfo;
+import cn.wwinter.entity.PmsProduct;
 import cn.wwinter.malladmin.model.dto.*;
 import cn.wwinter.malladmin.service.PmsProductService;
-import cn.wwinter.malladmin.service.action.sqlAction.product.*;
-import cn.wwinter.malladmin.service.action.sqlAction.common.CommonSqlAction;
+import cn.wwinter.malladmin.service.action.sqlAction.*;
 import cn.wwinter.malladmin.service.assember.PmsProductAssembler;
 import cn.wwinter.malladmin.model.common.CommonResponse;
-import cn.wwinter.malladmin.model.common.CommonProductInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

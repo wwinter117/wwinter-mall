@@ -13,7 +13,7 @@
     <button type="button" @click="register()">Register</button>
 
     <div class="switch">
-      <p>Already have an account? <a href="#" @click="showLoginForm()">Login</a></p>
+      <p>Already have an account? <span @click="showLoginForm()">Login</span></p>
     </div>
   </div>
 </template>
@@ -53,7 +53,7 @@ export default {
     },
 
     showLoginForm() {
-      this.$router.push("/");
+      this.$router.push("Login");
     },
   }
 }

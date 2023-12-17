@@ -1,6 +1,6 @@
 package cn.wwinter.malladmin.model.dto;
 
-import cn.wwinter.malladmin.model.domain.UmsAdmin;
+import cn.wwinter.entity.UmsAdmin;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
